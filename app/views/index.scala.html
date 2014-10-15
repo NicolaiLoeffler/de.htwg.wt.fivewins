@@ -1,0 +1,20 @@
+@(message: String, columns: Integer) @main("Welcome to Play Framework") {
+
+<div class="well">
+	<h1>
+		5 Wins
+	</h1>
+	<form action="input_button.htm">
+		<p>
+			@for(i <- 0 to columns-1){
+				@for(i <- 0 to columns-1){
+					<input type="button" name="Text 2" value="O"
+					onclick="this.form.textfeld.value='Ich bin Text 2 - ganz normal'">
+				}
+			<br>
+			}
+		</p>
+	</form>
+</div>
+
+}
