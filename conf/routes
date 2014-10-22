@@ -3,8 +3,8 @@
 # ~~~~
 
 GET     /                           	controllers.Application.index()
-GET		/command/newGame/:fieldSize		controllers.Application.newGame(fieldSize:Integer)
-GET		/command/setCell/:column/:row	controllers.Application.setCell(column:String, row:String)
+GET		/newGame/:fieldSize		controllers.Application.newGame(fieldSize:Integer)
+GET		/setCell/:column/:row	controllers.Application.setCell(column:String, row:String)
 
 
 # Map static resources from the /public folder to the /assets URL path
