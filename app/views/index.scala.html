@@ -7,8 +7,8 @@
 	<form action="input_button.htm">
 		<p>
 			@for(i <- 0 to columns-1){
-				@for(i <- 0 to columns-1){
-					<input type="button" name="Text 2" value="O"
+				@for(j <- 0 to columns-1){
+					<input type="button" id="button" value=" "
 					onclick="this.form.textfeld.value='Ich bin Text 2 - ganz normal'">
 				}
 			<br>

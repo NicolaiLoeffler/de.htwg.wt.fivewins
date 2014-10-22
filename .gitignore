@@ -1,6 +1,6 @@
 logs
-project/project
-project/target
+#project/project
+#project/target
 target
 tmp
 .history
@@ -12,7 +12,7 @@ dist
 /out
 /.idea_modules
 /.classpath
-/.project
+#/.project
 /RUNNING_PID
 /.settings
-/project/*-shim.sbt
+#/project/*-shim.sbt
