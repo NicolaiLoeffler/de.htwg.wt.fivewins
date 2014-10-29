@@ -3,26 +3,150 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>@title</title>
-    <link rel='shortcut icon' type='image/png' href='@routes.Assets.at("images/favicon.png")'>
-    <link rel='stylesheet' href='@routes.WebJarAssets.at(WebJarAssets.locate("bootstrap.min.css"))'>
-    <script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("jquery.min.js"))'></script>
-    <style>
-    body {
-        margin-top: 50px;
-    }
-    </style>
+<title>@title</title>
+<link rel='shortcut icon' type='image/png'
+	href='@routes.Assets.at("images/favicon.png")'>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<style>
+body {
+	margin-top: 50px;
+}
+
+.btn-circle.btn-xl {
+	width: 30px;
+	height: 30px;
+	padding: 6px 0px;
+	margin: 6px 0px;
+	font-size: 12px;
+	line-height: 1.428;
+	border-radius: 15px;
+}
+.btn-outline-inverse:hover {
+	color: green;
+	text-shadow: none;
+	background-color: #FFF;
+	border-color: #FFF;
+}
+.btn-outline-inverse{
+    color: white;
+    text-shadow: none;
+    background-color: green;
+    border-color: #FFF;
+}
+</style>
 </head>
 <body>
-    <div class="navbar navbar-fixed-top">
-        <div class="navbar-inner">
-            <div class="container-fluid">
-                <a id="titleLink" class="brand" href="/">@title</a>
-            </div>
-        </div>
-    </div>
-    <div class="container">
-        @content
-    </div>
+
+	<!-- Fixed navbar -->
+	<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+
+				<button type="button" class="btn btn-info btn-circle btn-xl"
+					value="5">5</button>
+
+			</div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li><a href="#play">Play</a></li>
+					<li><a href="#about">About</a></li>
+				</ul>
+			</div>
+			<!--/.nav-collapse -->
+		</div>
+	</div>
+
+	<div style="width: 100%; height: 90%; background-color: green">
+		<div class="container">
+
+			<!-- Main component for a primary marketing message or call to action -->
+			<div class="jumbotron" style="background-color: green">
+				<h1>5 Wins</h1>
+				<p>This example is a quick exercise to illustrate how the
+					default, static and fixed to top navbar work. It includes the
+					responsive CSS and HTML, so it also adapts to your viewport and
+					device.</p>
+				<p>To see the difference between static and fixed top navbars,
+					just scroll.</p>
+
+				<p class="lead">
+					<a href="getting-started#download"
+						class="btn btn-outline-inverse btn-lg"
+						onclick="ga('send', 'event', 'Jumbotron actions', 'Download', 'Download 3.2.0');">Download
+						Bootstrap</a>
+				</p>
+
+				</button>
+			</div>
+		</div>
+	</div>
+	<!-- /container -->
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4">
+				<h2>Heading</h2>
+				<p>Donec id elit non mi porta gravida at eget metus. Fusce
+					dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh,
+					ut fermentum massa justo sit amet risus. Etiam porta sem malesuada
+					magna mollis euismod. Donec sed odio dui.</p>
+				<p>
+					<a class="btn btn-default" href="#" role="button">View details
+						»</a>
+				</p>
+			</div>
+			<div class="col-md-4">
+				<h2>Heading</h2>
+				<p>Donec id elit non mi porta gravida at eget metus. Fusce
+					dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh,
+					ut fermentum massa justo sit amet risus. Etiam porta sem malesuada
+					magna mollis euismod. Donec sed odio dui.</p>
+				<p>
+					<a class="btn btn-default" href="#" role="button">View details
+						»</a>
+				</p>
+			</div>
+			<div class="col-md-4">
+				<h2>Heading</h2>
+				<p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in,
+					egestas eget quam. Vestibulum id ligula porta felis euismod semper.
+					Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum
+					nibh, ut fermentum massa justo sit amet risus.</p>
+				<p>
+					<a class="btn btn-default" href="#" role="button">View details
+						»</a>
+				</p>
+			</div>
+		</div>
+	</div>
+
+
+
+	</div>
+
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="../../dist/js/bootstrap.min.js"></script>
+	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+	<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
 </body>
 </html>
