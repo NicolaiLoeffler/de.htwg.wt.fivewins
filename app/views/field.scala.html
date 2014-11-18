@@ -1,25 +1,40 @@
-@(message: String, columns: Integer) @main("Welcome to Play Framework") {
+@(message: String, columns: Integer) @main("Playing 5 Wins") {
+<script type="text/javascript">
+		function pressed(x,y) {
+		   //send ajax call
+		   $.post("/setCell/"+x+"/"+y, function (data) {
+			   var msg = JSON.parse(data);
 
+				$('#testOutPut').empty();
+				$('#testOutPut').append(msg.isDraw);
+				$('#testOutPut').append(msg.playerSign);
+				$('#testOutPut').append(msg.status);
+				$('#testOutPut').append(msg.isWon);
+				$('#testOutPut').append(msg.winner);
+		   })
+		   //evaluate JSON
+		   
+
+			   
+		}
+		
+	</script>
 <div class="well">
 	<h1>
 		5 Wins
 	</h1>
-	<form action="input_button.htm">
 		<p>
 			@for(i <- 0 to columns-1){
 				@for(j <- 0 to columns-1){
-					<input type="button" id="button" value=" "
-					onclick="this.form.textfeld.value='Ich bin Text 2 - ganz normal'">
+					<div style="height:10px; width:10px; background-color:black; float:left; margin-right:5px;" 
+						id="@i@j" onclick="pressed(@i,@j)"></div>
 				}
 			<br>
 			}
 		</p>
-	</form>
-	<form>
+		<div id="testOutPut"></div>
+
 		@Html(HtmlFormat.escape(message).toString.replace("\n", "<br />"))
-	
-	
-	</form>
 </div>
 
 }

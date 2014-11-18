@@ -2,9 +2,10 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-GET     /                           	controllers.Application.index()
-GET		/newGame/:fieldSize		controllers.Application.newGame(fieldSize:Integer)
-GET		/setCell/:column/:row	controllers.Application.setCell(column:String, row:String)
+GET     /                       	controllers.Application.index()
+POST	/setCell/:column/:row		controllers.Application.setCell(column:String, row:String)
+GET		/game						controllers.Application.game()
+GET		/game/play/:fieldSize		controllers.Application.newGame(fieldSize:Integer)
 
 
 # Map static resources from the /public folder to the /assets URL path
