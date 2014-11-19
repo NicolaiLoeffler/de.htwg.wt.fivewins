@@ -35,19 +35,15 @@
 				$('#testOutPut').append("Status: "+msg.status);
 				$('#testOutPut').append("Is won: "+msg.isWon);
 				$('#testOutPut').append("Winner:"+msg.winner);
+				$('#testOutPut').append("<br>");
+				$('#testOutPut').append(msg.field);
 				
-				if(msg.isWon == true){
-					alert("Player "+msg.winner+" won!");
-					return;
-				}
-				if(msg.isDraw == true){
-					alert("Game resulted in a draw!");
-					return;
-				}
+				
 				
 				// Cell already set
 				if(msg.status.indexOf("already") > -1){
-					alert("Cell is already set!");					
+					alert("Cell is already set!");
+					return
 				}	
 				
 				//Cell successfully set -> update div cell
@@ -61,15 +57,28 @@
 					$("#"+x+y).append(msg.playerSign);
 					
 				}
+				
+				if(msg.isWon == "true"){
+					alert("Player "+msg.winner+" won!");
+					$
+					return;
+				}
+				if(msg.isDraw == "true"){
+					alert("Game resulted in a draw!");
+					return;
+				}
 		   })		   	   			   
 		}
 		
 </script>
 <div class="well">
 	<h1>5 Wins</h1>
-	@for(i <- 1 to columns){ @for(j <- 1 to columns){
-	<div class="cell" id="@i@j" onclick="pressed(@i,@j)"></div>
-	} <br> <br> }
+	@for(i <- 1 to columns){
+		@for(j <- 1 to columns){
+			<div class="cell" id="@i@j" onclick="pressed(@i,@j)"></div>
+		}
+		<br><br>
+	}
 	<div id="testOutPut"></div>
 </div>
 

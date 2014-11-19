@@ -14,6 +14,7 @@ import play.mvc.Result;
 public class Application extends Controller {
     
 	static IFiveWinsController controller;
+	private static String player_on_turn_sign = null;
 	
     public static Result index() {
         return ok(views.html.index.render());
@@ -30,6 +31,11 @@ public class Application extends Controller {
     }
 
     public static Result setCell(String column, String row){
+    	/* 
+    	 * controller.getPlayerSign() hast to be called before handleInputOrQuit
+    	 * because after handleOrInput turn is already switchted to next Player
+    	 */   	
+    	player_on_turn_sign = controller.getPlayerSign();
     	controller.handleInputOrQuit(column+","+row);
     	return json();
     }
@@ -37,8 +43,8 @@ public class Application extends Controller {
     public static Result json() {
         Map<String, String> map = new HashMap<String, String>();
         map.put("isDraw", Boolean.toString(controller.getDraw()));
-        map.put("playerSign", controller.getPlayerSign());
-        map.put("status", controller.getStatus());
+        map.put("playerSign", player_on_turn_sign);
+        map.put("status", controller.getStatus());      
         map.put("isWon", Boolean.toString(controller.getWinner()));
         map.put("winner", controller.getWinnerSign());
 
