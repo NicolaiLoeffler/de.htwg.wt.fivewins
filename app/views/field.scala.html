@@ -1,40 +1,76 @@
 @(message: String, columns: Integer) @main("Playing 5 Wins") {
+
+
+<style>
+.cell {
+	height: 40px;
+	width: 40px;
+	color: #269926;
+	float: left;
+	border-style: solid;
+	border-width: 5px;
+	border-color: green;
+	text-align: center;
+	/* unselectable text */
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+</style>
+
 <script type="text/javascript">
+
 		function pressed(x,y) {
+			
 		   //send ajax call
 		   $.post("/setCell/"+x+"/"+y, function (data) {
 			   var msg = JSON.parse(data);
 
 				$('#testOutPut').empty();
-				$('#testOutPut').append(msg.isDraw);
-				$('#testOutPut').append(msg.playerSign);
-				$('#testOutPut').append(msg.status);
-				$('#testOutPut').append(msg.isWon);
-				$('#testOutPut').append(msg.winner);
-		   })
-		   //evaluate JSON
-		   
-
-			   
+				$('#testOutPut').append("Is draw:" + msg.isDraw);
+				$('#testOutPut').append("Player sign:" + msg.playerSign);
+				$('#testOutPut').append("Status: "+msg.status);
+				$('#testOutPut').append("Is won: "+msg.isWon);
+				$('#testOutPut').append("Winner:"+msg.winner);
+				
+				if(msg.isWon == true){
+					alert("Player "+msg.winner+" won!");
+					return;
+				}
+				if(msg.isDraw == true){
+					alert("Game resulted in a draw!");
+					return;
+				}
+				
+				// Cell already set
+				if(msg.status.indexOf("already") > -1){
+					alert("Cell is already set!");					
+				}	
+				
+				//Cell successfully set -> update div cell
+				if(msg.status.indexOf("successfully") != -1){
+									
+					if(msg.playerSign == "O"){
+						$("#"+x+y).css('color','red');
+					}else{
+						$("#"+x+y).css('color','blue');
+					}
+					$("#"+x+y).append(msg.playerSign);
+					
+				}
+		   })		   	   			   
 		}
 		
-	</script>
+</script>
 <div class="well">
-	<h1>
-		5 Wins
-	</h1>
-		<p>
-			@for(i <- 0 to columns-1){
-				@for(j <- 0 to columns-1){
-					<div style="height:10px; width:10px; background-color:black; float:left; margin-right:5px;" 
-						id="@i@j" onclick="pressed(@i,@j)"></div>
-				}
-			<br>
-			}
-		</p>
-		<div id="testOutPut"></div>
-
-		@Html(HtmlFormat.escape(message).toString.replace("\n", "<br />"))
+	<h1>5 Wins</h1>
+	@for(i <- 1 to columns){ @for(j <- 1 to columns){
+	<div class="cell" id="@i@j" onclick="pressed(@i,@j)"></div>
+	} <br> <br> }
+	<div id="testOutPut"></div>
 </div>
 
 }

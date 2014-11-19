@@ -36,14 +36,12 @@ public class Application extends Controller {
     
     public static Result json() {
         Map<String, String> map = new HashMap<String, String>();
-        map.put("isDraw", (new Boolean(controller.getDraw()).toString()));
+        map.put("isDraw", Boolean.toString(controller.getDraw()));
         map.put("playerSign", controller.getPlayerSign());
         map.put("status", controller.getStatus());
-        map.put("isWon", (new Boolean(controller.getWinner())).toString());
+        map.put("isWon", Boolean.toString(controller.getWinner()));
         map.put("winner", controller.getWinnerSign());
 
         return ok(Json.stringify(Json.toJson(map)));
-    }
-    
-    
+    }    
 }
