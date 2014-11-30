@@ -1,26 +1,30 @@
 @main("Setup 5 Wins"){
 <script type="text/javascript">
-		function drawField(size) {
-			$('a#playLink').attr('href', 'game/play/' + size)
-			$('#showGameField').empty();
-			$('#showGameField').append(size + ' x ' + size + '<br/>');
-			for(i = 0; i < size; i++) {
-				for(j = 0; j < size; j++) {
-					$('#showGameField').append('<input type="checkbox">');
-				}
-				$('#showGameField').append('<br>');
+	function drawField(size) {
+		$('a#playLink').attr('href', 'game/play/' + size)
+		$('#showGameField').empty();
+		$('#showGameField').append(size + ' x ' + size + '<br/>');
+		for (i = 0; i < size; i++) {
+			for (j = 0; j < size; j++) {
+				$('#showGameField').append('<input type="checkbox">');
 			}
-		   
+			$('#showGameField').append('<br>');
 		}
-	</script>
+
+	}
+</script>
 <div class="container">
-	<p><h1>Configure your Game:</h1></p>
+	<p>
+	<h1>Configure your Game:</h1>
+	</p>
 	<div class="col-md-8">
-		<input type="range" value="15"  min="5" max="20" oninput="drawField(this.value)"/>
+		<input type="range" value="15" min="5" max="20"
+			oninput="drawField(this.value)" />
 		<div id="showGameField"></div>
 	</div>
 	<div class="col-md-4">
 		<a id="playLink" href="game/play/15">Play Now!</a>
 	</div>
 </div>
+
 }

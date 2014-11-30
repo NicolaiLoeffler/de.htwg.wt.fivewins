@@ -22,6 +22,36 @@
 </style>
 
 <script type="text/javascript">
+		
+		$(function() {  
+		
+			connect();  
+		
+			function connect(){       
+				var socket = new WebSocket("ws://localhost:9000/socket");
+		
+				message('Socket Status: '+socket.readyState + ' (ready)');  
+		
+				socket.onopen = function(){  message('Socket Status: '+socket.readyState+' (open)');  }  ;
+		
+				socket.onmessage = function(msg){
+					var data = msg.data;
+					updateField(data);
+				};
+		
+				socket.onclose = function(){ message('Socket Status: '+socket.readyState+' (Closed)');  }  ;          
+		
+				function send(){  
+					var grid = "";
+					socket.send(grid);  
+					message('Sent grid '); 
+				}  
+		
+			}
+			//End connect  
+		
+		}); 
+
 
 		function pressed(x,y) {
 			
@@ -29,7 +59,6 @@
 		   $.post("/setCell/"+x+"/"+y, function (data) {
 			   var msg = JSON.parse(data);
 
-				$('#testOutPut').empty();
 				$('#testOutPut').append("Is draw:" + msg.isDraw);
 				$('#testOutPut').append("Player sign:" + msg.playerSign);
 				$('#testOutPut').append("Status: "+msg.status);
@@ -37,9 +66,7 @@
 				$('#testOutPut').append("Winner:"+msg.winner);
 				$('#testOutPut').append("<br>");
 				$('#testOutPut').append(msg.field);
-				
-				
-				
+							
 				// Cell already set
 				if(msg.status.indexOf("already") > -1){
 					alert("Cell is already set!");
@@ -70,16 +97,30 @@
 		   })		   	   			   
 		}
 		
+		function updateField(field){
+			var field = field.replace(/\s/g, '');
+			var columns = Math.sqrt(field.length);
+			var rows = columns;
+			alert("update called");
+			for(i = 0; i < rows; i++){
+				for(j = 0; j  < columns; j++){
+					if(field.charAt(i+j) != "-"){
+						alert(i+ " " + j + " appended");
+						$('#'+i+j).append(field.charAt(i+j));
+					}
+				}
+			}			
+		}
+		
+		
 </script>
 <div class="well">
 	<h1>5 Wins</h1>
-	@for(i <- 1 to columns){
-		@for(j <- 1 to columns){
-			<div class="cell" id="@i@j" onclick="pressed(@i,@j)"></div>
-		}
-		<br><br>
-	}
+	@for(i <- 1 to columns){ @for(j <- 1 to columns){
+	<div class="cell" id="@i@j" onclick="pressed(@i,@j)"></div>
+	} <br> <br> }
 	<div id="testOutPut"></div>
+	<div id="chat-area"></div>
 </div>
-
 }
+

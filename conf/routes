@@ -6,6 +6,7 @@ GET     /                       	controllers.Application.index()
 POST	/setCell/:column/:row		controllers.Application.setCell(column:String, row:String)
 GET		/game						controllers.Application.game()
 GET		/game/play/:fieldSize		controllers.Application.newGame(fieldSize:Integer)
+GET		/socket						controllers.Application.connectWebSocket()
 
 
 # Map static resources from the /public folder to the /assets URL path

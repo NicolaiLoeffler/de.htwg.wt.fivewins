@@ -4,12 +4,14 @@ package controllers;
 import java.util.HashMap;
 import java.util.Map;
 
+import models.GridObserver;
 import de.htwg.fivewins.controller.FiveWinsController;
 import de.htwg.fivewins.controller.IFiveWinsController;
 import de.htwg.fivewins.field.Field;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.mvc.WebSocket;
 
 public class Application extends Controller {
     
@@ -49,5 +51,14 @@ public class Application extends Controller {
         map.put("winner", controller.getWinnerSign());
 
         return ok(Json.stringify(Json.toJson(map)));
-    }    
+    }
+    
+    public static WebSocket<String> connectWebSocket() {
+        return new WebSocket<String>() {      
+            public void onReady(WebSocket.In<String> in, WebSocket.Out<String> out) {
+            	new GridObserver(controller,out);
+            }
+
+        };
+    }
 }
