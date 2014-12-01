@@ -1,0 +1,42 @@
+<script type="text/javascript">
+		/*function pressed(row,cell) {
+      alert(row + " " + cell);
+		}*/
+
+    function play() {
+			//size = $('#range')
+      //$('#config').empty();
+      //$('#gameOptions').show();
+
+			//foreach loop
+      //$('#' + test).click(function() {
+      //$(this).parent().attr("id");
+      // add event listener(onclick) on all cells
+    }
+	</script>
+<div id="config" class="container">
+	<p><h1>Configure your Game</h1> <span class="glyphicon glyphicon-cog" aria-hidden="true"></span></p>
+	<div class="col-md-8">
+		<!--<input type="range" value="15"  min="5" max="20" oninput="drawField(this.value)"/>
+		<div id="showGameField"></div> -->
+    <input id="range" type="range" ng-model="fieldSize" ng-change="resizeField();" min="5" max="20" />
+
+    {{fieldSize}}
+
+	</div>
+	<div class="col-md-4">
+		<a id="playLink" ng-click="addEventListener()">Play Now!</a>
+	</div>
+</div>
+<div style="background-color: #006633; width:100%; padding-bottom: 40px; padding-top:40px;">
+    <div id="field">
+      <div class="row" id="row_{{$index}}" ng-repeat="column in field track by $index">
+          <div class="cell" id="{{$index}}" ng-repeat="cell in column track by $index" ng-click="pressed($event)">{{cell}}</div>
+      </div>
+    </div>
+</div>
+<div id="gameOptions" class="container" style="display: none;">
+  <div class="col-md-4">Anzahl der Z&uuml;ge:</div>
+  <div class="col-md-4">Aktueller Spieler:</div>
+  <div class="col-md-4">Spielzeit: </div>
+</div>

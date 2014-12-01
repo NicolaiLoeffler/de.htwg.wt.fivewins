@@ -1,119 +1,126 @@
 @(title: String)(content: Html)
+<html ng-app="fiveWinsApp">
+  <head>
+    <meta charset="utf-8">
+    <title>Five Wins.</title>
+    	  <link rel="stylesheet" href='@routes.Assets.at("stylesheets/FiveWins.css")' />
+          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+          <!-- ><script type='text/javascript' src='@routes.Assets.at("javascripts/index.js")'></script> -->
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+          <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+          <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
+    <script>
+      var fiveWinsApp = angular.module('fiveWinsApp', ['ngRoute']);
 
-<!DOCTYPE html>
-<html>
-<head>
-<title>@title</title>
-<link rel='shortcut icon' type='image/png'
-	href='@routes.Assets.at("images/favicon.png")'>
+      fiveWinsApp.config(function($routeProvider) {
+        $routeProvider.
+          when('/', {
+            templateUrl: '@routes.Assets.at("htmls/start.html")',
+            controller: 'FiveWinsStartCtrl'
+          }).
+          when('/game', {
+            templateUrl: '@routes.Assets.at("htmls/game.html")',
+            controller: 'FiveWinsGameCtrl'
+          }).
+          when('/test', {
+            templateUrl: 'test.html',
+            controller: 'FiveWinsStartCtrl'
+          }).
+          otherwise({
+            redirectTo: '/'
+          });
+      });
 
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+      fiveWinsApp.controller('FiveWinsStartCtrl', function ($scope, $http){
+        /*$http.get('countries.json').success(function(data) {
+          $scope.countries = data;
+        });*/
+      });
 
-<!-- Optional theme -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-	
-<script
-	src="https://code.jquery.com/jquery-2.1.1.min.js"></script>	
+      fiveWinsApp.controller('FiveWinsGameCtrl', function ($scope, $routeParams, $compile){
+        //console.log($routeParams);
+        // variables
+        $scope.fieldSize = 15;
 
-<!-- Latest compiled and minified JavaScript -->
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-<style>
-body {
-	margin-top: 50px;
-}
+        $scope.field = [
+          [" ", " ", " "],
+          [" ", " ", " "],
+          [" ", " ", " "]
+        ];
 
-.btn-circle.btn-xl {
-	width: 30px;
-	height: 30px;
-	padding: 6px 0px;
-	margin: 6px 0px;
-	font-size: 12px;
-	line-height: 1.428;
-	border-radius: 15px;
-}
-.btn-outline-inverse:hover {
-	color: #006633;
-	text-shadow: none;
-	background-color: #FFF;
-	border-color: #FFF;
-}
-.btn-outline-inverse{
-    color: white;
-    text-shadow: none;
-    background-color: #006633;
-    border-color: #FFF;
-}
+        $scope.isGameStarted = false;
 
-.btn-outline:hover {
-	color: #FFF;
-	text-shadow: none;
-	background-color: #006633;
-	border-color: #006633;
-}
-.btn-outline{
-		color: #006633;
-		text-shadow: none;
-		background-color: #FFF;
-		border-color: #006633;
-		width:280px;
-}
+        //functions
+        $scope.resizeField = function() {
+          newArray = [];
+          for(i = 0; i < $scope.fieldSize; i++) {
+              newArray[i] = [];
+            for(j = 0; j < $scope.fieldSize; j++) {
+              newArray[i][j] = " ";
+            }
+          }
 
-.circle {
-    margin: 0 auto;
-    display: block;
-    height: 120px;
-    width: 120px;
-    line-height: 120px;
-    -moz-border-radius: 50%; /* or 50% */
-    border-radius: 50%; /* or 50% */
-		border:1px white solid;
-    color: white;
-    text-align: center;
-    font-size: 2em;
-}
-</style>
-</head>
-<body>
-	<!-- Fixed navbar -->
-	<div class="navbar navbar-default navbar-fixed-top" role="navigation">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed"
-					data-toggle="collapse" data-target=".navbar-collapse">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
+          $scope.field = newArray;
+        };
 
-				<button type="button" class="btn btn-circle btn-xl" style="background-color:#006633" 
-					onclick="location.href='/'">5</button>
+        $scope.addEventListener = function() {
+          /*for(i=0; i < $scope.fieldSize;i++) {
+            $('#row_'+i).children().each(function () {
+              //console.log($(this));
+              $(this).attr('ng-click','pressed()');
+              $compile($(this))($scope);
 
-			</div>
-			<div class="navbar-collapse collapse">
-				<ul class="nav navbar-nav">
-					<li><a href="/game">Play</a></li>
-					<li><a href="#about">About</a></li>
-				</ul>
-			</div>
-			<!--/.nav-collapse -->
-		</div>
-	</div>
-<!-- -->
-<div>
-	@content
-</div>
+              console.log('test');
+            });
+            console.log('#row_'+i);
+          }*/
+          console.log('isGameStarted = true');
+          $scope.isGameStarted = true;
+          $('#config').hide();
+          $('#gameOptions').show()
+        };
 
-	<!-- Bootstrap core JavaScript
-    ================================================== -->
-	<!-- Placed at the end of the document so the pages load faster -->
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	<script src="../../dist/js/bootstrap.min.js"></script>
-	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-	<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
-</body>
+        $scope.pressed = function($event) {
+          if($scope.isGameStarted) {
+            console.log($event.target);
+            row = $($event.target).parent().attr("id").split("_")[1];
+            cell = $($event.target).attr("id");
+            console.log(row);
+            console.log(cell);
+
+          }
+        };
+
+      });
+    </script>
+  </head>
+  <body>
+    <!-- HEADER -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+		    <div class="container">
+			       <div class="navbar-header">
+				           <button type="button" class="navbar-toggle collapsed"
+					            data-toggle="collapse" data-target=".navbar-collapse">
+					            <span class="sr-only">Toggle navigation</span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+				           </button>
+
+				          <button type="button" class="btn btn-circle btn-xl" style="background-color:#006633"
+					             onclick="location.href='#/'">5</button>
+			       </div>
+			       <div class="navbar-collapse collapse">
+				          <ul class="nav navbar-nav">
+					             <li><a href="#/game">Play</a></li>
+					             <li><a href="#about">About</a></li>
+				          </ul>
+			       </div>
+		    </div>
+	  </div>
+    <!-- HEADER END -->
+    <div ng-view></div>
+  </body>
 </html>
