@@ -35,20 +35,33 @@ public class Application extends Controller {
     }
 
     public static Result setCell(String column, String row){
+//    	if(column.equals("") || row.equals("")) {
+//    		return badRequest();
+//    	}
     	/* 
     	 * controller.getPlayerSign() hast to be called before handleInputOrQuit
     	 * because after handleOrInput turn is already switchted to next Player
-    	 */   	
-    	player_on_turn_sign = controller.getPlayerSign();
-    	controller.handleInputOrQuit(column+","+row);
+    	 */
+    	
+    	int col = new Integer(column) +1;
+    	int r = new Integer(row) +1;
+    	
+        controller.handleInputOrQuit(col+","+r );
+    	//    	controller.handleInputOrQuit(column+","+row);
         Map<String, String> map = new HashMap<String, String>();
-        // all informations
+//        // all informations
         map.put("isDraw", Boolean.toString(controller.getDraw()));
-        map.put("playerSign", player_on_turn_sign);
+        map.put("playerSign", controller.getPlayerSign());
         map.put("status", controller.getStatus());      
         map.put("isWon", Boolean.toString(controller.getWinner()));
         map.put("winner", controller.getWinnerSign());
+      	// all informations
+    	
+//    		controller.handleInputOrQuit(column+","+row);
+
         
+      	map.put("column", ""+col);
+      	map.put("row", ""+r);
         return ok(Json.stringify(Json.toJson(map)));
     }
     

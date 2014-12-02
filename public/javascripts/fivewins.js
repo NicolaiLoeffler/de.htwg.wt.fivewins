@@ -28,8 +28,16 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 	$scope.fieldSize = 15;
 
 	$scope.field = [ [ " ", " ", " " ], [ " ", " ", " " ], [ " ", " ", " " ] ];
-
+	
 	$scope.isGameStarted = false;
+	
+	$scope.numberOfTurns = 0;
+	
+	$scope.currentPlayer = 'X';
+	
+	$scope.winner = '';
+	$scope.draw = false;
+	
 
 	// functions
 	$scope.resizeField = function() {
@@ -47,8 +55,9 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 	$scope.addEventListener = function() {
 		console.log('isGameStarted = true');
 		$scope.isGameStarted = true;
-		$('#config').hide();
-		$('#gameOptions').show();
+		$( "#config" ).toggle('slow');
+//		$('#config').hide();
+		$('#gameOptions').show('slow');
 		// ajax call to start game
 		$.post("/game/play/" + $scope.fieldSize, function(data) {
 			console.log("Initial Game.");
@@ -60,14 +69,18 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 			console.log($event.target);
 			row = $($event.target).parent().attr("id").split("_")[1];
 			cell = $($event.target).attr("id");
-			console.log(row);
-			console.log(cell);
+			// delete eventlisener from target and :hover effekt
+			
 			
 			// get all gameinformation
 			$.post("/setCell/" + row + "/" + cell, function(data) {
-				console.log("Ajax call 1.");
-				var msg1 = JSON.parse(data);
-				console.log(msg1);
+				console.log("Get game information.");
+				var msg = JSON.parse(data);
+				$scope.numberOfTurns++;
+				$scope.currentPlayer = msg.playerSign;
+				$scope.winner = msg.winner;
+				$scope.draw = msg.isDraw;
+				$scope.$apply();
 			});
 			
 			//get changed gamefield

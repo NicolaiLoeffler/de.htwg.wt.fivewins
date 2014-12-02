@@ -3,7 +3,7 @@
 # ~~~~
 
 GET     /                       	controllers.Application.index()
-POST	/setCell/:column/:row		controllers.Application.setCell(column:String, row:String)
+POST    /setCell/:column/:row		controllers.Application.setCell(column:String, row:String)
 POST	/game/field					controllers.Application.gamefieldTojson()
 GET		/game						controllers.Application.game()
 POST	/game/play/:fieldSize		controllers.Application.newGame(fieldSize:Integer)
