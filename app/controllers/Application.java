@@ -4,6 +4,8 @@ package controllers;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.fasterxml.jackson.databind.JsonNode;
+
 import models.GridObserver;
 import de.htwg.fivewins.controller.FiveWinsController;
 import de.htwg.fivewins.controller.IFiveWinsController;
@@ -39,18 +41,19 @@ public class Application extends Controller {
     	 */   	
     	player_on_turn_sign = controller.getPlayerSign();
     	controller.handleInputOrQuit(column+","+row);
-    	return json();
-    }
-    
-    public static Result json() {
         Map<String, String> map = new HashMap<String, String>();
+        // all informations
         map.put("isDraw", Boolean.toString(controller.getDraw()));
         map.put("playerSign", player_on_turn_sign);
         map.put("status", controller.getStatus());      
         map.put("isWon", Boolean.toString(controller.getWinner()));
         map.put("winner", controller.getWinnerSign());
-
+        
         return ok(Json.stringify(Json.toJson(map)));
+    }
+    
+    public static Result gamefieldTojson() {
+         return ok(Json.stringify(Json.toJson(controller.getField())));
     }
     
     public static WebSocket<String> connectWebSocket() {

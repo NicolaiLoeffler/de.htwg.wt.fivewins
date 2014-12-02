@@ -23,8 +23,7 @@ fiveWinsApp.controller('FiveWinsStartCtrl', function($scope, $http) {
 });
 
 fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
-		$compile) {
-	// console.log($routeParams);
+		$compile, $http) {
 	// variables
 	$scope.fieldSize = 15;
 
@@ -46,17 +45,14 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 	};
 
 	$scope.addEventListener = function() {
-		/*
-		 * for(i=0; i < $scope.fieldSize;i++) {
-		 * $('#row_'+i).children().each(function () { //console.log($(this));
-		 * $(this).attr('ng-click','pressed()'); $compile($(this))($scope);
-		 * 
-		 * console.log('test'); }); console.log('#row_'+i); }
-		 */
 		console.log('isGameStarted = true');
 		$scope.isGameStarted = true;
 		$('#config').hide();
-		$('#gameOptions').show()
+		$('#gameOptions').show();
+		// ajax call to start game
+		$.post("/game/play/" + $scope.fieldSize, function(data) {
+			console.log("Initial Game.");
+		});
 	};
 
 	$scope.pressed = function($event) {
@@ -66,6 +62,20 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 			cell = $($event.target).attr("id");
 			console.log(row);
 			console.log(cell);
+			
+			// get all gameinformation
+			$.post("/setCell/" + row + "/" + cell, function(data) {
+				console.log("Ajax call 1.");
+				var msg1 = JSON.parse(data);
+				console.log(msg1);
+			});
+			
+			//get changed gamefield
+			$.post("/game/field", function(data) {
+				console.log("Get gamefield.");
+				$scope.field = JSON.parse(data);
+				$scope.$apply();
+			});
 
 		}
 	};
