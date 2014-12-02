@@ -14,18 +14,18 @@ body {
 .btn-outline-inverse:hover {
 	color: #006633;
 	text-shadow: none;
-	background-color: #FFF;
-	border-color: #FFF;
+	background-color: #FFFFFF;
+	border-color: #FFFFFF;
 }
 .btn-outline-inverse{
-    color: white;
+    color: #FFFFFF;
     text-shadow: none;
     background-color: #006633;
-    border-color: #FFF;
+    border-color: #FFFFFF;
 }
 
 .btn-outline:hover {
-	color: #FFF;
+	color: #FFFFFF;
 	text-shadow: none;
 	background-color: #006633;
 	border-color: #006633;
@@ -33,7 +33,7 @@ body {
 .btn-outline{
 		color: #006633;
 		text-shadow: none;
-		background-color: #FFF;
+		background-color: #FFFFFF;
 		border-color: #006633;
 		width:280px;
 }
