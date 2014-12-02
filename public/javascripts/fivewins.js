@@ -8,7 +8,7 @@ fiveWinsApp.config(function($routeProvider) {
 		templateUrl : '/assets/htmls/game.html',
 		controller : 'FiveWinsGameCtrl'
 	}).when('/test', {
-		templateUrl : 'test.html',
+		templateUrl : '/assets/htmls/test.html',
 		controller : 'FiveWinsStartCtrl'
 	}).otherwise({
 		redirectTo : '/'
@@ -81,6 +81,10 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 				$scope.winner = msg.winner;
 				$scope.draw = msg.isDraw;
 				$scope.$apply();
+				if (msg.isWon == "true") {
+					$scope.endResult();
+					return;
+				}
 			});
 			
 			//get changed gamefield
@@ -91,6 +95,18 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 			});
 
 		}
+	};
+	
+	$scope.endResult = function() {
+		$( "#config" ).empty();
+//		$.get("/assets/htmls/test.html", function(data){
+//		    $("#config").children().html(data);
+//		});
+//		$( "#config" ).append('output');
+		$('#config').load('/assets/htmls/test.html', function() {
+			$( "#config" ).show('slow');
+		});
+		
 	};
 
 });
