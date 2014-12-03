@@ -51,7 +51,7 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 
 		$scope.field = newArray;
 	};
-
+	
 	$scope.addEventListener = function() {
 		console.log('isGameStarted = true');
 		$scope.isGameStarted = true;
@@ -61,6 +61,7 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 		// ajax call to start game
 		$.post("/game/play/" + $scope.fieldSize, function(data) {
 			console.log("Initial Game.");
+			$scope.initWebsocket();
 		});
 	};
 
@@ -93,7 +94,6 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 				$scope.field = JSON.parse(data);
 				$scope.$apply();
 			});
-
 		}
 	};
 	
@@ -108,5 +108,40 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 		});
 		
 	};
+	
+	$scope.initWebsocket = function() {
+
+		connect();
+
+		function connect() {
+			var socket = new WebSocket("ws://localhost:9000/socket");
+
+			//message('Socket Status: ' + socket.readyState + ' (ready)');
+
+			socket.onopen = function() {
+				alert("Open Socket");
+				//message('Socket Status: ' + socket.readyState + ' (open)');
+			};
+
+			socket.onmessage = function(msg) {
+				alert("Update recieved");
+				var data = msg.data;
+				updateField(data);
+			};
+
+			socket.onclose = function() {
+				//message('Socket Status: ' + socket.readyState + ' (Closed)');
+				socket.close();
+			};
+
+			function send() {
+				var grid = "";
+				socket.send(grid);
+				//message('Sent grid ');
+			}
+		}
+		// End connect
+	};
 
 });
+
