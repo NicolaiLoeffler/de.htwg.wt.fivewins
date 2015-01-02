@@ -35,11 +35,8 @@ public class Application extends Controller {
     }
 
     public static Result setCell(String column, String row){
-//    	if(column.equals("") || row.equals("")) {
-//    		return badRequest();
-//    	}
     	/* 
-    	 * controller.getPlayerSign() hast to be called before handleInputOrQuit
+    	 * controller.getPlayerSign() has to be called before handleInputOrQuit
     	 * because after handleOrInput turn is already switchted to next Player
     	 */
     	
@@ -49,7 +46,7 @@ public class Application extends Controller {
         controller.handleInputOrQuit(col+","+r );
     	//    	controller.handleInputOrQuit(column+","+row);
         Map<String, String> map = new HashMap<String, String>();
-//        // all informations
+        // all informations
         map.put("isDraw", Boolean.toString(controller.getDraw()));
         map.put("playerSign", controller.getPlayerSign());
         map.put("status", controller.getStatus());      

@@ -78,39 +78,18 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 			console.log($event.target);
 			row = $($event.target).parent().attr("id").split("_")[1];
 			cell = $($event.target).attr("id");
-			// delete eventlisener from target and :hover effekt
+			// delete eventlisener from target and :hover 
 			
 			
 			// get all gameinformation
-			$.post("/setCell/" + row + "/" + cell, function(data) {
-				console.log("Get game information.");
-				var msg = JSON.parse(data);
-				$scope.numberOfTurns++;
-				$scope.currentPlayer = msg.playerSign;
-				$scope.winner = msg.winner;
-				$scope.draw = msg.isDraw;
-				$scope.$apply();
-				if (msg.isWon == "true") {
-					$scope.endResult();
-					return;
-				}
-			});
+			$.post("/setCell/" + row + "/" + cell, function(data) { });
 			
-			//get changed gamefield
-			$.post("/game/field", function(data) {
-				console.log("Get gamefield.");
-				$scope.field = JSON.parse(data);
-				$scope.$apply();
-			});
 		}
 	};
 	
 	$scope.endResult = function() {
+		$scope.isGameStarted = false;
 		$( "#config" ).empty();
-//		$.get("/assets/htmls/test.html", function(data){
-//		    $("#config").children().html(data);
-//		});
-//		$( "#config" ).append('output');
 		$('#config').load('/assets/htmls/test.html', function() {
 			$( "#config" ).show('slow');
 		});
@@ -124,28 +103,39 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 		function connect() {
 			var socket = new WebSocket("ws://localhost:9000/socket");
 
-			//message('Socket Status: ' + socket.readyState + ' (ready)');
+			console.log('Socket Status: ' + socket.readyState + ' (ready)');
 
 			socket.onopen = function() {
-				alert("Open Socket");
-				//message('Socket Status: ' + socket.readyState + ' (open)');
+				console.log('Socket Status: ' + socket.readyState + ' (open)');
 			};
 
 			socket.onmessage = function(msg) {
-				alert("Update recieved");
-				var data = msg.data;
-				updateField(data);
+				console.log('Socket: onmessage()');
+				// update Gamefield
+				var data = JSON.parse(msg.data);
+				$scope.field = JSON.parse(data.gameField);
+				$scope.numberOfTurns++;
+				$scope.currentPlayer = data.playerSign;
+				$scope.winner = data.winner;
+				$scope.draw = data.isDraw;
+				$scope.$apply();
+				if (data.isWon == "true") {
+					$scope.endResult();
+					return;
+				}
+				console.log(data.status);
+				console.log(data);
 			};
 
 			socket.onclose = function() {
-				//message('Socket Status: ' + socket.readyState + ' (Closed)');
+				console.log('Socket Status: ' + socket.readyState + ' (Closed)');
 				socket.close();
 			};
 
 			function send() {
-				var grid = "";
+				/*var grid = "";
 				socket.send(grid);
-				//message('Sent grid ');
+				console.log('Sent grid ');*/
 			}
 		}
 		// End connect
