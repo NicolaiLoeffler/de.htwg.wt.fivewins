@@ -53,12 +53,8 @@ body {
 }
 
 #field {
-  background-color: #006633;;
-  padding:5px;
-  /*border:1px black solid;*/ 
-  /*width:830px;*/
+  border:1px black solid;
   display: inline-block;
-  margin:0px auto;
 }
 
 .row {
@@ -83,4 +79,9 @@ body {
 	float: left;
 	border-radius: 3px;
 	background: white;
+}
+
+#radioBtn .active{
+    color: #FFFFFF;
+    background-color:  #006633;
 }

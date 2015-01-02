@@ -1,21 +1,45 @@
+<script type="text/javascript">
+<!--
+$('#radioBtn a').on('click', function(){
+    var sel = $(this).data('title');
+    var tog = $(this).data('toggle');
+    $('#'+tog).prop('value', sel);
+    
+    $('a[data-toggle="'+tog+'"]').not('[data-title="'+sel+'"]').removeClass('active').addClass('notActive');
+    $('a[data-toggle="'+tog+'"][data-title="'+sel+'"]').removeClass('notActive').addClass('active');
+});
+//-->
+</script>
+
 <div id="config" class="container" style="padding-bottom: 20px;">
 	<p><h1>Configure your Game</h1></p>
 	<div class="col-md-8">
     <input id="range" type="range" ng-model="fieldSize" ng-change="resizeField();" min="5" max="20" />
 
-    {{fieldSize}}
-
+    <br /><br/>
+    
+    			<div class="input-group">
+    				<div id="radioBtn" class="btn-group">
+    					<a class="btn btn-default btn-md" data-toggle="fun" data-title="Y">Player vs. NPC</a>
+                        <a class="btn btn-default btn-md active" data-toggle="fun" data-title="X">Player vs. Player</a>
+    					<a class="btn btn-default btn-md" data-toggle="fun" data-title="N">Player vs. Player over Internet</a>
+    				</div>
+    				<input type="hidden" name="fun" id="fun">
+    			</div>
+    
 	</div>
 	<div class="col-md-4">
 		<a class="btn btn-outline btn-lg" ng-click="addEventListener()">Play Now!</a>
 	</div>
 </div>
 <div style="background-color: #006633; padding-bottom: 40px; padding-top:40px; text-align: center;">
-    <div id="field">
-      <div class="row" id="row_{{$index}}" ng-repeat="column in field track by $index">
-          <div class="cell" id="{{$index}}" ng-repeat="cell in column track by $index" ng-click="pressed($event)">{{cell}}</div>
-      </div>
-    </div>
+	
+    	<div id="field">
+      		<div class="row" id="row_{{$index}}" ng-repeat="column in field track by $index">
+          		<div class="cell" id="{{$index}}" ng-repeat="cell in column track by $index" ng-click="pressed($event)">{{cell}}</div>
+      		</div>
+    	</div>
+    
 </div>
 <div id="gameOptions" class="container" style="display: none;">
   <div class="col-md-4">Anzahl der Z&uuml;ge: {{numberOfTurns}}</div>
