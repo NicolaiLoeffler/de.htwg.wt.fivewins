@@ -1,8 +1,6 @@
 <div id="config" class="container" style="padding-bottom: 20px;">
-	<p><h1>Configure your Game</h1> <span class="glyphicon glyphicon-cog" aria-hidden="true"></span></p>
+	<p><h1>Configure your Game</h1></p>
 	<div class="col-md-8">
-		<!--<input type="range" value="15"  min="5" max="20" oninput="drawField(this.value)"/>
-		<div id="showGameField"></div> -->
     <input id="range" type="range" ng-model="fieldSize" ng-change="resizeField();" min="5" max="20" />
 
     {{fieldSize}}
@@ -12,7 +10,7 @@
 		<a class="btn btn-outline btn-lg" ng-click="addEventListener()">Play Now!</a>
 	</div>
 </div>
-<div style="background-color: #006633; width:100%; padding-bottom: 40px; padding-top:40px;">
+<div style="background-color: #006633; padding-bottom: 40px; padding-top:40px; text-align: center;">
     <div id="field">
       <div class="row" id="row_{{$index}}" ng-repeat="column in field track by $index">
           <div class="cell" id="{{$index}}" ng-repeat="cell in column track by $index" ng-click="pressed($event)">{{cell}}</div>
