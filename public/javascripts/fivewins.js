@@ -26,8 +26,16 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 		$compile, $http) {
 	// variables
 	$scope.fieldSize = 15;
-
-	$scope.field = [ [ " ", " ", " " ], [ " ", " ", " " ], [ " ", " ", " " ] ];
+	
+	$scope.field = [];
+	
+	// Initial field
+	for (i = 0; i < $scope.fieldSize; i++) {
+		$scope.field[i] = [];
+		for (j = 0; j < $scope.fieldSize; j++) {
+			$scope.field[i][j] = " ";
+		}
+	}
 	
 	$scope.isGameStarted = false;
 	
