@@ -13,12 +13,12 @@ $('#radioBtn a').on('click', function(){
 
 <div id="config" class="container" style="padding-bottom: 20px;">
 	<p><h1>Configure your Game</h1></p>
-	<div class="col-md-8">
+	<div class="col-md-8" style="padding-bottom: 20px;">
     <input id="range" type="range" ng-model="fieldSize" ng-change="resizeField();" min="5" max="20" />
 
     <br /><br/>
     
-    <div class="input-group">
+    <div class="input-group" style="margin:0 auto;">
     	<div id="radioBtn" class="btn-group">
     		<a class="btn btn-default btn-md" data-toggle="gameType" data-title="NPC">Player vs. NPC</a>
             <a class="btn btn-default btn-md active" data-toggle="gameType" data-title="PVP">Player vs. Player</a>
@@ -32,7 +32,7 @@ $('#radioBtn a').on('click', function(){
     			
     
 	</div>
-	<div class="col-md-4">
+	<div class="col-md-4" style="text-align: center;">
 		<a class="btn btn-outline btn-lg" ng-click="addEventListener()">Play Now!</a>
 	</div>
 </div>

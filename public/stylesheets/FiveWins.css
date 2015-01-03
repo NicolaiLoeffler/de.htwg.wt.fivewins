@@ -31,11 +31,11 @@ body {
 	border-color: #006633;
 }
 .btn-outline{
-		color: #006633;
-		text-shadow: none;
-		background-color: #FFFFFF;
-		border-color: #006633;
-		width:280px;
+	color: #006633;
+	text-shadow: none;
+	background-color: #FFFFFF;
+	border-color: #006633;
+	/*width:280px;*/
 }
 
 .circle {
