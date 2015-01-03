@@ -105,6 +105,15 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 		
 	};
 	
+	$scope.endResultDraw = function() {
+		$scope.isGameStarted = false;
+		$( "#config" ).empty();
+		$( "#config" ).load('/assets/htmls/draw.html', function() {
+			$( "#config" ).show('slow');
+		});
+		
+	};
+	
 	$scope.initWebsocket = function() {
 
 		connect();
@@ -130,6 +139,10 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 				$scope.$apply();
 				if (data.isWon == "true") {
 					$scope.endResult();
+					return;
+				}
+				if (data.isDraw == "true") {
+					$scope.endResultDraw();
 					return;
 				}
 				console.log(data.status);
