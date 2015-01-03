@@ -98,8 +98,9 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 	$scope.endResult = function() {
 		$scope.isGameStarted = false;
 		$( "#config" ).empty();
-		$('#config').load('/assets/htmls/test.html', function() {
+		$( "#config" ).load('/assets/htmls/winner.html', function() {
 			$( "#config" ).show('slow');
+			$("#winnerPlayer").text($scope.winner);
 		});
 		
 	};
