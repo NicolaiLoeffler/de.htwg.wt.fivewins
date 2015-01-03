@@ -10,6 +10,7 @@ import models.GridObserver;
 import de.htwg.fivewins.controller.FiveWinsController;
 import de.htwg.fivewins.controller.IFiveWinsController;
 import de.htwg.fivewins.field.Field;
+import de.htwg.fivewins.field.VerySillyAI;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -30,36 +31,20 @@ public class Application extends Controller {
     
     public static Result newGame(Integer fieldSize) {
     	controller = new FiveWinsController(new Field(new Integer(fieldSize)));
-    	String fieldString = controller.getFieldString();
-    	return ok(views.html.field.render(fieldString, fieldSize));
+    	return ok();
+    }
+    
+    public static Result newGameAI(Integer fieldSize, String sign) {
+    	Field field = new Field(fieldSize);
+    	controller = new FiveWinsController(field, new VerySillyAI("O", field));
+    	return ok();
     }
 
-    public static Result setCell(String column, String row){
-    	/* 
-    	 * controller.getPlayerSign() has to be called before handleInputOrQuit
-    	 * because after handleOrInput turn is already switchted to next Player
-    	 */
-    	
+    public static Result setCell(String column, String row){	
     	int col = new Integer(column) +1;
     	int r = new Integer(row) +1;
-    	
         controller.handleInputOrQuit(col+","+r );
-    	//    	controller.handleInputOrQuit(column+","+row);
-        Map<String, String> map = new HashMap<String, String>();
-        // all informations
-        map.put("isDraw", Boolean.toString(controller.getDraw()));
-        map.put("playerSign", controller.getPlayerSign());
-        map.put("status", controller.getStatus());      
-        map.put("isWon", Boolean.toString(controller.getWinner()));
-        map.put("winner", controller.getWinnerSign());
-      	// all informations
-    	
-//    		controller.handleInputOrQuit(column+","+row);
-
-        
-      	map.put("column", ""+col);
-      	map.put("row", ""+r);
-        return ok(Json.stringify(Json.toJson(map)));
+        return ok();
     }
     
     public static Result gamefieldTojson() {

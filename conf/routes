@@ -2,14 +2,15 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-GET     /                       	controllers.Application.index()
-POST    /setCell/:column/:row		controllers.Application.setCell(column:String, row:String)
-POST	/game/field					controllers.Application.gamefieldTojson()
-GET		/game						controllers.Application.game()
-POST	/game/play/:fieldSize		controllers.Application.newGame(fieldSize:Integer)
-GET		/socket						controllers.Application.connectWebSocket()
+GET     /                       			controllers.Application.index()
+POST    /setCell/:column/:row				controllers.Application.setCell(column:String, row:String)
+POST	/game/field							controllers.Application.gamefieldTojson()
+GET		/game								controllers.Application.game()
+POST	/game/play/:fieldSize				controllers.Application.newGame(fieldSize:Integer)
+POST	/game/play/:fieldSize/NPC/:sign		controllers.Application.newGameAI(fieldSize:Integer, sign:String)
+GET		/socket								controllers.Application.connectWebSocket()
 
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.at(path="/public", file)
-GET     /webjars/*file              controllers.WebJarAssets.at(file)
+GET     /assets/*file              			controllers.Assets.at(path="/public", file)
+GET     /webjars/*file              		controllers.WebJarAssets.at(file)

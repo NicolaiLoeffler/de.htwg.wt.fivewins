@@ -62,15 +62,23 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 	
 	$scope.addEventListener = function() {
 		console.log('isGameStarted = true');
+		console.log($('#gameType').val());
 		$scope.isGameStarted = true;
 		$( "#config" ).toggle('slow');
 //		$('#config').hide();
 		$('#gameOptions').show('slow');
 		// ajax call to start game
-		$.post("/game/play/" + $scope.fieldSize, function(data) {
-			console.log("Initial Game.");
-			$scope.initWebsocket();
-		});
+		if($('#gameType').val() == "PVP") {
+			$.post("/game/play/" + $scope.fieldSize, function(data) {
+				console.log("Initial Game(PVP).");
+				$scope.initWebsocket();
+			});
+		} else if($('#gameType').val() == "NPC"){
+			$.post("/game/play/" + $scope.fieldSize + "/NPC/O", function(data) {
+				console.log("Initial Game(NPC).");
+				$scope.initWebsocket();
+			});
+		}
 	};
 
 	$scope.pressed = function($event) {
