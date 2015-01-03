@@ -4,9 +4,12 @@ fiveWinsApp.config(function($routeProvider) {
 	$routeProvider.when('/', {
 		templateUrl : '/assets/htmls/start.html',
 		controller : 'FiveWinsStartCtrl'
-	}).when('/game', {
+	}).when('/game/', {
 		templateUrl : '/assets/htmls/game.html',
 		controller : 'FiveWinsGameCtrl'
+	}).when('/about', {
+		templateUrl : '/assets/htmls/about.html',
+		controller : 'FiveWinsAboutCtrl'
 	}).when('/test', {
 		templateUrl : '/assets/htmls/test.html',
 		controller : 'FiveWinsStartCtrl'
@@ -16,6 +19,13 @@ fiveWinsApp.config(function($routeProvider) {
 });
 
 fiveWinsApp.controller('FiveWinsStartCtrl', function($scope, $http) {
+	/*
+	 * $http.get('countries.json').success(function(data) { $scope.countries =
+	 * data; });
+	 */
+});
+
+fiveWinsApp.controller('FiveWinsAboutCtrl', function($scope, $http) {
 	/*
 	 * $http.get('countries.json').success(function(data) { $scope.countries =
 	 * data; });
