@@ -1,0 +1,21 @@
+.custom[focused] /deep/ .floated-label .label-text {
+	color: #006633;
+}
+
+.custom /deep/ .focused-underline {
+	background-color: #006633;
+}
+
+.custom.invalid /deep/ .floated-label .label-text, .custom /deep/ .error
+{
+	color: #006633;
+}
+
+.custom.invalid /deep/ .focused-underline {
+	background-color: #006633;
+}
+
+.colored {
+	background-color: #006633;
+	color: #FFFFFF
+}

@@ -10,6 +10,9 @@ fiveWinsApp.config(function($routeProvider) {
 	}).when('/about', {
 		templateUrl : '/assets/htmls/about.html',
 		controller : 'FiveWinsAboutCtrl'
+	}).when('/login', {
+		templateUrl : '/assets/htmls/login.html',
+		controller : 'FiveWinsStartCtrl'
 	}).when('/test', {
 		templateUrl : '/assets/htmls/test.html',
 		controller : 'FiveWinsStartCtrl'

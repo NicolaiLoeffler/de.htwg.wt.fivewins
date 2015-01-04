@@ -1,0 +1,20 @@
+{
+  "name": "de.htwg.wt.fivewins",
+  "version": "0.0.0",
+  "homepage": "https://github.com/NicolaiLoeffler/de.htwg.wt.fivewins",
+  "authors": [
+    "magoeke <magoeke@htwg-konstanz.com>"
+  ],
+  "description": "WUI for Five Wins",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#~0.5.2"
+  }
+}
