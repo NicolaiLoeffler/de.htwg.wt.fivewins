@@ -28,7 +28,7 @@ public class Application extends JavaController {
 
 	public static Result index() throws TechnicalException {
 		final CommonProfile profile = getUserProfile();
-		final String urlGoogle = getRedirectAction("Google2Client", "/?0")
+		final String urlGoogle = getRedirectAction("OidcClient", "/?0")
 					.getLocation();
 
 
@@ -77,7 +77,7 @@ public class Application extends JavaController {
 		return ok(views.html.protectedIndex.render(profile));
 	}
 
-	@RequiresAuthentication(clientName = "Google2Client")
+	@RequiresAuthentication(clientName = "OidcClient")
 	public static Result googleIndex() {
 		return protectedIndex();
 	}
