@@ -27,11 +27,6 @@ public class Application extends JavaController {
 	private static String player_on_turn_sign = null;
 
 	public static Result index() throws TechnicalException {
-		final CommonProfile profile = getUserProfile();
-		final String urlGoogle = getRedirectAction("OidcClient", "/game")
-					.getLocation();
-
-
 		return ok(views.html.index.render());
 	}
 
@@ -80,5 +75,12 @@ public class Application extends JavaController {
 	@RequiresAuthentication(clientName = "OidcClient")
 	public static Result googleIndex() {
 		return protectedIndex();
+	}
+	
+	public static Result login() throws TechnicalException {
+		final CommonProfile profile = getUserProfile();
+		final String urlOidc = getRedirectAction("OidcClient", "/?0")
+					.getLocation();
+		return ok(views.html.login.render(profile,urlOidc));
 	}
 }
