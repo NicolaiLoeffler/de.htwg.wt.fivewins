@@ -20,13 +20,15 @@ public class Global extends GlobalSettings {
 		final String baseUrl = Play.application().configuration()
 				.getString("baseUrl");
 		final String googleKey = Play.application().configuration()
-				.getString("googleKey");
+				.getString("google2Key");
 		final String googleSecret = Play.application().configuration()
-				.getString("googleSecret");
+				.getString("google2Secret");
 
+		System.out.println("Global Settings called");
 		// Google OAuth 2.0
 		final Google2Client google2Client = new Google2Client(googleKey,
 				googleSecret);
+		System.out.println(googleKey+" key\n"+googleSecret+ " secret");
 
 		// Clients
 		final Clients clients = new Clients(baseUrl + "/callback",

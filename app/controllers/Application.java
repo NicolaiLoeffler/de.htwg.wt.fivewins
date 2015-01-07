@@ -28,8 +28,10 @@ public class Application extends JavaController {
 
 	public static Result index() throws TechnicalException {
 		final CommonProfile profile = getUserProfile();
-		final String urlGoogle2 = getRedirectAction("Google2Client", "/callback")
-				.getLocation();
+		final String urlGoogle = getRedirectAction("Google2Client")
+					.getLocation();
+
+
 		return ok(views.html.index.render());
 	}
 
@@ -75,7 +77,7 @@ public class Application extends JavaController {
 		return ok(views.html.protectedIndex.render(profile));
 	}
 
-	@RequiresAuthentication(clientName = "Client")
+	@RequiresAuthentication(clientName = "Google2Client")
 	public static Result googleIndex() {
 		return protectedIndex();
 	}
