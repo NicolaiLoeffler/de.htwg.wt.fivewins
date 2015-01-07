@@ -28,7 +28,7 @@ public class Application extends JavaController {
 
 	public static Result index() throws TechnicalException {
 		final CommonProfile profile = getUserProfile();
-		final String urlGoogle = getRedirectAction("OidcClient", "/?0")
+		final String urlGoogle = getRedirectAction("OidcClient", "/game")
 					.getLocation();
 
 
