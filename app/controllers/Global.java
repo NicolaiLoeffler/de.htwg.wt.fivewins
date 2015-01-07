@@ -29,8 +29,8 @@ public class Global extends GlobalSettings {
 		
 		 // OpenID Connect
 		final OidcClient oidcClient = new OidcClient();
-		oidcClient.setClientID(googleKey);
-		oidcClient.setSecret(googleSecret);
+		oidcClient.setClientID("747624574509-i6nesa9okgcdaiuennf9qfcp2m69long.apps.googleusercontent.com");
+		oidcClient.setSecret("k5o6-YrlYXTH-u4MLizMEUBd");
 		oidcClient.setDiscoveryURI("https://accounts.google.com/.well-known/openid-configuration");
 		oidcClient.addCustomParam("prompt", "consent");
 		
