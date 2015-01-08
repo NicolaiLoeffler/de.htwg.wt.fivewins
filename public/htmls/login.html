@@ -32,7 +32,7 @@
 		else {
 			if(authResult['error']['user_signed_out']){
 				document.getElementById('signinButton').setAttribute('style',
-				'display: none');
+				'display: normal');
 				alert("logged out");
 			}
 			// Update the app to reflect a signed out user
@@ -44,6 +44,7 @@
 		}
 	}
 	function logout() {
+		alert("logout called");
 		gapi.auth.signOut();
 	}
 </script>
