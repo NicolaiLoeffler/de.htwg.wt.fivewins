@@ -11,6 +11,9 @@
 			data-requestvisibleactions="http://schema.org/AddAction"
 			data-scope="https://www.googleapis.com/auth/plus.login"> </span>
 		</span>
+		<span>
+			<input id="logout" type="button" value="logout" onclick="logout();" />
+		</span>
 	</div>
 </div>
 
@@ -25,7 +28,13 @@
 			document.getElementById('signinButton').setAttribute('style',
 					'display: none');
 			alert("signed in");
-		} else {
+		}
+		else {
+			if(authResult['error']['user_signed_out']){
+				document.getElementById('signinButton').setAttribute('style',
+				'display: none');
+				alert("logged out");
+			}
 			// Update the app to reflect a signed out user
 			// Possible error values:
 			//   "user_signed_out" - User is signed-out
@@ -33,5 +42,8 @@
 			//   "immediate_failed" - Could not automatically log in the user
 			console.log('Sign-in state: ' + authResult['error']);
 		}
+	}
+	function logout() {
+		gapi.auth.signOut();
 	}
 </script>
