@@ -30,7 +30,7 @@
 			alert("signed in");
 		}
 		else {
-			if(authResult['error']['user_signed_out']){
+			if(authResult['error'] == "user_signed_out"){
 				document.getElementById('signinButton').setAttribute('style',
 				'display: normal');
 				alert("logged out");
