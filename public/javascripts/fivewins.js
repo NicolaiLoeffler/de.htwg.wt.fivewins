@@ -132,7 +132,12 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 		connect();
 
 		function connect() {
-			var socket = new WebSocket("ws://localhost:9000/socket");
+			var wsproto = 'ws://';
+			if (window.location.protocol === 'https:') {
+			wsproto = 'wss://';
+			}
+			var socketUrl = wsproto + location.host + '/socket';
+			var socket = new WebSocket(socketUrl);
 
 			console.log('Socket Status: ' + socket.readyState + ' (ready)');
 
