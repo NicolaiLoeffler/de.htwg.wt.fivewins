@@ -8,9 +8,6 @@ lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
 libraryDependencies ++= Seq(
   "org.webjars" % "bootstrap" % "2.3.1",
-  "org.pac4j" % "play-pac4j_java" % "1.4.0-SNAPSHOT",
-  "org.pac4j" % "pac4j-oauth" % "1.7.0-SNAPSHOT",
-  "org.pac4j" % "pac4j-oidc" % "1.7.0-SNAPSHOT",
   "com.typesafe.play" % "play-cache_2.11" % "2.3.0"
 )
 

@@ -15,18 +15,14 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.WebSocket;
 
-import org.pac4j.core.exception.TechnicalException;
-import org.pac4j.core.profile.CommonProfile;
-import org.pac4j.play.Config;
-import org.pac4j.play.java.JavaController;
-import org.pac4j.play.java.RequiresAuthentication;
 
-public class Application extends JavaController {
+
+public class Application extends Controller {
 
 	static IFiveWinsController controller;
 	private static String player_on_turn_sign = null;
 
-	public static Result index() throws TechnicalException {
+	public static Result index() {
 		return ok(views.html.index.render());
 	}
 
@@ -66,14 +62,4 @@ public class Application extends JavaController {
 		};
 	}
 
-	private static Result protectedIndex() {
-		// profile
-		final CommonProfile profile = getUserProfile();
-		return ok(views.html.protectedIndex.render(profile));
-	}
-
-	@RequiresAuthentication(clientName = "OidcClient")
-	public static Result googleIndex() {
-		return protectedIndex();
-	}
 }
