@@ -39,9 +39,9 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 		$compile, $http) {
 	// variables
 	$scope.fieldSize = 15;
-	
+
 	$scope.field = [];
-	
+
 	// Initial field
 	for (i = 0; i < $scope.fieldSize; i++) {
 		$scope.field[i] = [];
@@ -49,16 +49,15 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 			$scope.field[i][j] = " ";
 		}
 	}
-	
+
 	$scope.isGameStarted = false;
-	
+
 	$scope.numberOfTurns = 0;
-	
+
 	$scope.currentPlayer = 'X';
-	
+
 	$scope.winner = '';
 	$scope.draw = false;
-	
 
 	// functions
 	$scope.resizeField = function() {
@@ -72,21 +71,21 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 
 		$scope.field = newArray;
 	};
-	
+
 	$scope.addEventListener = function() {
 		console.log('isGameStarted = true');
 		console.log($('#gameType').val());
 		$scope.isGameStarted = true;
-		$( "#config" ).toggle('slow');
-//		$('#config').hide();
+		$("#config").toggle('slow');
+		// $('#config').hide();
 		$('#gameOptions').show('slow');
 		// ajax call to start game
-		if($('#gameType').val() == "PVP") {
+		if ($('#gameType').val() == "PVP") {
 			$.post("/game/play/" + $scope.fieldSize, function(data) {
 				console.log("Initial Game(PVP).");
 				$scope.initWebsocket();
 			});
-		} else if($('#gameType').val() == "NPC"){
+		} else if ($('#gameType').val() == "NPC") {
 			$.post("/game/play/" + $scope.fieldSize + "/NPC/O", function(data) {
 				console.log("Initial Game(NPC).");
 				$scope.initWebsocket();
@@ -99,34 +98,34 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 			console.log($event.target);
 			row = $($event.target).parent().attr("id").split("_")[1];
 			cell = $($event.target).attr("id");
-			// delete eventlisener from target and :hover 
-			
-			
+			// delete eventlisener from target and :hover
+
 			// get all gameinformation
-			$.post("/setCell/" + row + "/" + cell, function(data) { });
-			
+			$.post("/setCell/" + row + "/" + cell, function(data) {
+			});
+
 		}
 	};
-	
+
 	$scope.endResult = function() {
 		$scope.isGameStarted = false;
-		$( "#config" ).empty();
-		$( "#config" ).load('/assets/htmls/winner.html', function() {
-			$( "#config" ).show('slow');
+		$("#config").empty();
+		$("#config").load('/assets/htmls/winner.html', function() {
+			$("#config").show('slow');
 			$("#winnerPlayer").text($scope.winner);
 		});
-		
+
 	};
-	
+
 	$scope.endResultDraw = function() {
 		$scope.isGameStarted = false;
-		$( "#config" ).empty();
-		$( "#config" ).load('/assets/htmls/draw.html', function() {
-			$( "#config" ).show('slow');
+		$("#config").empty();
+		$("#config").load('/assets/htmls/draw.html', function() {
+			$("#config").show('slow');
 		});
-		
+
 	};
-	
+
 	$scope.initWebsocket = function() {
 
 		connect();
@@ -134,7 +133,7 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 		function connect() {
 			var wsproto = 'ws://';
 			if (window.location.protocol === 'https:') {
-			wsproto = 'wss://';
+				wsproto = 'wss://';
 			}
 			var socketUrl = wsproto + location.host + '/socket';
 			var socket = new WebSocket(socketUrl);
@@ -168,18 +167,19 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 			};
 
 			socket.onclose = function() {
-				console.log('Socket Status: ' + socket.readyState + ' (Closed)');
+				console
+						.log('Socket Status: ' + socket.readyState
+								+ ' (Closed)');
 				socket.close();
 			};
 
 			function send() {
-				/*var grid = "";
-				socket.send(grid);
-				console.log('Sent grid ');*/
+				/*
+				 * var grid = ""; socket.send(grid); console.log('Sent grid ');
+				 */
 			}
 		}
 		// End connect
 	};
 
 });
-

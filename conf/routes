@@ -13,7 +13,6 @@ GET   	/google/index.html   				controllers.Application.googleIndex()
 GET   	/callback               			org.pac4j.play.CallbackController.callback()
 POST  	/callback               			org.pac4j.play.CallbackController.callback()
 GET   	/logout                 			org.pac4j.play.CallbackController.logoutAndRedirect()
-GET		/login								controllers.Application.login()
 
 
 # Map static resources from the /public folder to the /assets URL path
