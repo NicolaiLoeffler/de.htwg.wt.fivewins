@@ -1,22 +1,19 @@
 <link rel="import" href="/assets/elements/login-form.html">
 
 <div class="container">
-	<div class="col-md-4"></div>
 	<div class="col-md-4">
 		<login-form></login-form>
-	</div>
-	<div class="cold-md-4">
-	<h1>Login with Google</h1>
-		<span id="signinButton"> <span class="g-signin"
-			data-callback="signinCallback"
-			data-clientid="747624574509-i6nesa9okgcdaiuennf9qfcp2m69long.apps.googleusercontent.com"
-			data-cookiepolicy="single_host_origin"
-			data-requestvisibleactions="http://schema.org/AddAction"
-			data-scope="https://www.googleapis.com/auth/plus.login"> </span>
-		</span>
+		<h1>Login with Google</h1>
+		<div id="signinButton">
+			<span class="g-signin" data-callback="signinCallback"
+				data-clientid="747624574509-i6nesa9okgcdaiuennf9qfcp2m69long.apps.googleusercontent.com"
+				data-cookiepolicy="single_host_origin"
+				data-requestvisibleactions="http://schema.org/AddAction"
+				data-scope="https://www.googleapis.com/auth/plus.login"> </span>
+		</div>
 		<div>
-			<a id="signoutButton" class="btn btn-outline btn-lg"
-				ng-click="logout()" style="display: none">Abmelden</a>
+			<button id="signoutButton" class="btn btn-outline btn-lg"
+				onclick="logout()" style="display: none">Abmelden</button>
 		</div>
 	</div>
 </div>
