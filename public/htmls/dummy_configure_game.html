@@ -1,112 +1,52 @@
 <link rel="stylesheet" href="assets/stylesheets/popupwindow.css">
 <script src="assets/javascripts/popupwindow.js"></script>
-
-<script type="text/javascript">
-<!--
-$(document).ready(function () {
-    //gametype buttons
-    $('.btn.btn-default.btn-md').click(function(e) {
-        e.preventDefault();
-        $('#pop-up-1').popUpWindow({
-        		action: "open",
-            	size: "small"
-            });
-    });
-    
-    $('.btn.btn-default.btn-md.active').click(function(e) {
-        e.preventDefault();
-        $('#pop-up-1').popUpWindow({
-        		action: "open",
-            	size: "small"
-            });
-    });
-    
-    //range slider
-    $('#range').click(function(e) {
-        e.preventDefault();
-        $('#pop-up-2').popUpWindow({
-        		action: "open",
-            	size: "small"
-            });
-    });
-    
-    //play now button
-    $('#play_now').click(function(e) {
-        e.preventDefault();
-        $('#pop-up-3').popUpWindow({
-        		action: "open",
-            	size: "small"
-            });
-    });
-    
-    //preview
-    $('#preview').click(function(e) {
-        e.preventDefault();
-        $('#pop-up-4').popUpWindow({
-        		action: "open",
-            	size: "small"
-            });
-    });
-});
-
-//-->
-</script>
-<style>
-#dummy_configure_field {
-  display: inline-block;
-}
-</style>
+<script type="text/javascript" src="assets/javascripts/dummy.js"></script>
 
 <div id="config" class="container" style="padding-bottom: 20px;">
-	<p><h1>Configure your Game</h1></p>
+	<h1>Configure your Game</h1>
 	<div class="col-md-8" style="padding-bottom: 20px;">
-    <input id="range" type="range" value="5" min="5" max="20" />
-
-    <br /><br/>
-    
-    <div class="input-group" style="margin:0 auto;">
-    	<div id="radioBtn" class="btn-group">
-    		<a class="btn btn-default btn-md">Player vs. NPC</a>
-            <a class="btn btn-default btn-md active">Player vs. Player</a>
-    		<a class="btn btn-default btn-md">Player vs. Player over Internet</a>
-    	</div>
-   	</div>
-    
-    <!-- More options for NPC -->
-    		
-    			
-    
+		<input id="range" type="range" value="5" min="5" max="20" /> <br />
+		<br />
+		<div class="input-group" style="margin: 0 auto;">
+			<div id="radioBtn" class="btn-group">
+				<a class="btn btn-default btn-md">Player vs. NPC</a> 
+				<a class="btn btn-default btn-md active">Player vs. Player</a> 
+				<a class="btn btn-default btn-md">Player vs. Player over Internet</a>
+			</div>
+		</div>
 	</div>
 	<div class="col-md-4" style="text-align: center;">
-		<a id="play_now" class="btn btn-outline btn-lg" style="background-color:transparent;">Play Now!</a>
+		<a id="play_now" class="btn btn-outline btn-lg" style="background-color: transparent;">Play Now!</a>
 	</div>
 </div>
-<div id="preview" style="background-color: #006633; padding-bottom: 40px; padding-top:40px; text-align: center;">
-	
-    	<div id="dummy_configure_field">
-
-    	</div>
-    
+<div id="preview" style="background-color: #006633; padding-bottom: 40px; padding-top: 40px; text-align: center;">
+	<div id="dummy_configure_field"></div>
 </div>
 
 <!-- POPUP Texte -->
 
 <div id="pop-up-1" class="pop-up-display-content">
-<h1>Choose Enemy</h1>
-<p>You can choose between a NPC, your mate on the same pc or per internet as your enemy.</p>
+	<h1>Choose Enemy</h1>
+	<p>You can choose between a NPC, your mate on the same pc or per
+		internet as your enemy.</p>
 </div>
 
 <div id="pop-up-2" class="pop-up-display-content">
-<h1>Gamefield size</h1>
-<p>You can choose how big you like your game field.<br/> min.: 5 max.: 20</p>
+	<h1>Gamefield size</h1>
+	<p>
+		You can choose how big you like your game field.<br /> min.: 5 max.:
+		20
+	</p>
 </div>
 
+<!-- POPUPS -->
+
 <div id="pop-up-3" class="pop-up-display-content">
-<h1>Play Now Button</h1>
-<p>Starts game.</p>
+	<h1>Play Now Button</h1>
+	<p>Starts game.</p>
 </div>
 
 <div id="pop-up-4" class="pop-up-display-content">
-<h1>Preview</h1>
-<p>Displays a preview of the game field.</p>
+	<h1>Preview</h1>
+	<p>Displays a preview of the game field.</p>
 </div>

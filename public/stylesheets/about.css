@@ -28,3 +28,12 @@
 	color: #DFF0E7;
 	font-size: 12pt;
 }
+
+/* for dummie files */
+#dummy_play_field {
+  display: inline-block;
+}
+
+#dummy_configure_field {
+  display: inline-block;
+}
