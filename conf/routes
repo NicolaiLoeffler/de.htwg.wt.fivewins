@@ -5,7 +5,6 @@
 GET     /                       			controllers.Application.index()
 POST    /setCell/:column/:row				controllers.Application.setCell(column:String, row:String)
 POST	/game/field							controllers.Application.gamefieldTojson()
-GET		/game								controllers.Application.game()
 GET		/about								controllers.Application.about()
 POST	/game/play/:fieldSize				controllers.Application.newGame(fieldSize:Integer)
 POST	/game/play/:fieldSize/NPC/:sign		controllers.Application.newGameAI(fieldSize:Integer, sign:String)

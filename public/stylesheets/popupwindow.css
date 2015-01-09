@@ -79,7 +79,7 @@
     color: #d22;
     width: 24px;
     height: 24px;
-    background: url(assets/images/icon-cross.png) no-repeat 0 0;
+    background: url(/assets/images/icon-cross.png) no-repeat 0 0;
     display: inline-block;
 }
 .pop-up .close a:hover{

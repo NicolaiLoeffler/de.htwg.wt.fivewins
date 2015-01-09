@@ -19,14 +19,9 @@ import play.mvc.WebSocket;
 public class Application extends Controller {
     
 	static IFiveWinsController controller;
-	private static String player_on_turn_sign = null;
 	
     public static Result index() {
         return ok(views.html.index.render());
-    }
-    
-    public static Result game() {
-        return ok(views.html.game.render());
     }
     
     public static Result about() {
