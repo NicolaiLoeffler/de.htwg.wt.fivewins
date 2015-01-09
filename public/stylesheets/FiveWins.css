@@ -1,5 +1,7 @@
 body {
 	margin-top: 50px;
+	font-size:12pt;
+	font-family: 'open sans';
 }
 
 .btn-circle.btn-xl {
@@ -82,4 +84,14 @@ body {
 	float: left;
 	border-radius: 3px;
 	background: white;
+}
+
+
+#radioBtn .active{
+    color: #FFFFFF;
+    background-color:  #006633;
+}
+
+.page_container {
+	padding-top:80px;
 }
