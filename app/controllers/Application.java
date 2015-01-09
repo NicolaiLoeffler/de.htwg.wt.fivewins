@@ -29,6 +29,10 @@ public class Application extends Controller {
         return ok(views.html.game.render());
     }
     
+    public static Result about() {
+        return ok(views.html.about.render());
+    }
+    
     public static Result newGame(Integer fieldSize) {
     	controller = new FiveWinsController(new Field(new Integer(fieldSize)));
     	return ok();

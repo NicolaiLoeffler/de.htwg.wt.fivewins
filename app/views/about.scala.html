@@ -1,0 +1,181 @@
+@main("Welcome to 5 Wins"){
+<script type="text/javascript"
+	src="assets/javascripts/jquery.onepage-scroll.js"></script>
+<link href='assets/stylesheets/onepage-scroll.css' rel='stylesheet'
+	type='text/css'>
+
+<style>
+html {
+	height: 100%;
+}
+
+body {
+	background: #E2E4E7;
+	padding: 0;
+	font-family: 'open sans';
+	position: relative;
+	margin: 0;
+	height: 100%;
+	-webkit-font-smoothing: antialiased;
+}
+
+.wrapper {
+	height: 100% !important;
+	height: 100%;
+	margin: 0 auto;
+	overflow: hidden;
+}
+
+.main {
+	float: left;
+	width: 100%;
+	margin: 0 auto;
+}
+
+.main section .page_container {
+	position: relative;
+	top: 15%;
+	margin: 0 auto 0;
+	z-index: 3;
+}
+
+.main section {
+	overflow: hidden;
+}
+</style>
+<script>
+	$(document).ready(function() {
+		$(".main").onepage_scroll({
+			sectionContainer : "section",
+			responsiveFallback : 600,
+			loop : false
+		});
+	});
+</script>
+
+<div class="wrapper">
+	<div class="main">
+
+		<section class="page1">
+			<div class="page_container">
+				<div class="container">
+					<div class="col-md-12">
+						<h1>FiveWins</h1>
+						<br />
+						<h2>What is Five Wins?</h2>
+						<br /> Maybe you will know Five Wins as Five in a row. Five Wins
+						its very similar to TicTacToe. The diferrences are:
+						<ul>
+							<li>You need 5 token instead of 3</li>
+							<li>The gamefield is bigger</li>
+						</ul>
+						<br /> Five Wins is really easy to play and it's very
+						self-evident. Just click on Play in the Navigation and start a
+						game. Befor you start the game, you can choose how big you like
+						your gamefield and against whom you want to play. <br /> <br />
+						Scroll for further information.
+					</div>
+				</div>
+		</section>
+
+		<section class="page2">
+			<div class="page_container">
+				<div class="container">
+					<div id="configure" class="col-md-12">
+						<script>
+						<!--
+							$("#configure")
+									.load(
+											"assets/htmls/dummy_configure_game.html",
+											function() {
+												for (i = 0; i < 5; i++) {
+													$("#dummy_configure_field")
+															.append(
+																	"<div class=\"row\" id=\"row_" + i + "\">");
+													for (j = 0; j < 5; j++) {
+														$("#row_" + i)
+																.append(
+																		"<div class=\"cell\" >");
+													}
+												}
+											});
+							-->
+						</script>
+					</div>
+					<div class="col-md-12">
+						<br />
+						Above you see the Configuration dialiog. Click on Element to see
+						what it does.
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="page3">
+			<div class="page_container">
+				<div class="container">
+					<div class="col-md-12">
+						<h1>Playing Dialog</h1>
+					</div>
+					<div class="col-md-12" id="play_game">
+						<script>
+						<!--
+							$("#play_game")
+									.load(
+											"assets/htmls/dummy_play_game.html",
+											function() {
+												for (i = 0; i < 5; i++) {
+													$("#dummy_play_field")
+															.append(
+																	"<div class=\"row\" id=\"row2_" + i + "\">");
+													for (j = 0; j < 5; j++) {
+														$("#row2_" + i)
+																.append(
+																		"<div class=\"cell\" >");
+													}
+												}
+											});
+							-->
+						</script>
+					</div>
+				</div>
+			</div>
+	
+	</section>
+	<section class="page4">
+				<div class="page_container">
+					<div class="container">
+						<div class="col-md-12">
+							<h1>Further Dialogs</h1>
+						</div>
+						<div class="col-md-6">
+							<h3>Example Win Dialog</h3>
+						</div>
+						<div id="win_dialog" class="col-md-6">
+							<script>
+								<!-- 
+									$("#win_dialog").load("assets/htmls/winner.html", function() {
+										$('#winnerPlayer').text("X");
+									});
+								-->
+							</script>
+						</div>
+						<div id="draw_dialog" class="col-md-6">
+							<script>
+								<!-- 
+									$("#draw_dialog").load("assets/htmls/draw.html");
+								-->
+							</script>
+						</div>
+						<div class="col-md-6">
+							<h3>Draw Dialog</h3>
+						</div>
+					</div>
+				</div>
+		
+		</section>
+		</div>
+</div>
+</div>
+
+}

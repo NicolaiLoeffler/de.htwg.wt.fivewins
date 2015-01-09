@@ -2,7 +2,7 @@
 <html ng-app="fiveWinsApp">
   <head>
     <meta charset="utf-8">
-    <title>Five Wins.</title>
+    <title>Five Wins - Five in a row</title>
     	  <!-- 1. Load platform support before any code that touches the DOM. -->
     	  <script type='text/javascript' src='@routes.Assets.at("bower_components/webcomponentsjs/webcomponents.min.js")'></script>
           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
@@ -28,18 +28,18 @@
 				           </button>
 
 				          <button type="button" class="btn btn-circle btn-xl" style="background-color:#006633; color:#FFFFFF;"
-					             onclick="location.href='#/'">5</button>
+					             onclick="location.href='/#'">5</button>
 			       </div>
 			       <div class="navbar-collapse collapse">
 				          <ul class="nav navbar-nav">
-					             <li><a href="#/game">Play</a></li>
-					             <li><a href="#/about">About</a></li>
-					             <li><a href="#/login">LogIn</a></li>
+					             <li><a href="/#/game">Play</a></li>
+					             <li><a href="/about">About</a></li>
+					             <li><a href="/#/login">LogIn</a></li>
 				          </ul>
 			       </div>
 		    </div>
 	  </div>
     <!-- HEADER END --> 
-    <div ng-view></div>
+   @content
   </body>
 </html>
