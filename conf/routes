@@ -8,6 +8,7 @@ POST	/game/field							controllers.Application.gamefieldTojson()
 GET		/about								controllers.Application.about()
 POST	/game/play/:fieldSize				controllers.Application.newGame(fieldSize:Integer)
 POST	/game/play/:fieldSize/NPC/:sign		controllers.Application.newGameAI(fieldSize:Integer, sign:String)
+POST	/game/playOnline					controllers.Application.joinOnlineGame()
 GET		/socket								controllers.Application.connectWebSocket()
 
 
