@@ -42,6 +42,7 @@ public class Application extends Controller {
 	 * @return
 	 */
 	public static Result newGame(Integer fieldSize) {
+		session("gameId","local");
 		controller = new FiveWinsController(new Field(new Integer(fieldSize)));
 		return ok();
 	}
@@ -54,6 +55,7 @@ public class Application extends Controller {
 	 * @return
 	 */
 	public static Result newGameAI(Integer fieldSize, String sign) {
+		session("gameId","local");
 		Field field = new Field(fieldSize);
 		controller = new FiveWinsController(field, new VerySillyAI("O", field));
 		return ok();
@@ -70,7 +72,9 @@ public class Application extends Controller {
 		int col = new Integer(column) + 1;
 		int r = new Integer(row) + 1;
 		final String gameUUID = session("gameId");
-		if (gameUUID != null) {
+		if (gameUUID.equals("local")) {
+			controller.handleInputOrQuit(col + "," + r);
+		} else {
 			IFiveWinsController c = gameInstances.get(UUID.fromString(gameUUID)).getController();
 			if(c == null){
 				System.out.println("Couldnt get Instance controller for game instance "+gameUUID);
@@ -78,8 +82,6 @@ public class Application extends Controller {
 			}
 			c.handleInputOrQuit(col + "," + r);
 			System.out.println("set cell online");
-		} else {
-			controller.handleInputOrQuit(col + "," + r);
 		}
 		return ok();
 	}
@@ -98,15 +100,21 @@ public class Application extends Controller {
 	 */
 	public static WebSocket<String> connectWebSocket() {
 		final String gameUUID = session("gameId");
+		/*if(gameUUID == null){
+			System.out.println("Is null");
+		}
+		if(gameUUID.equals("")){
+			System.out.println("empty String");
+		}*/
 		return new WebSocket<String>() {
 			public void onReady(WebSocket.In<String> in,
 					WebSocket.Out<String> out) {
-				if (gameUUID != null) {
-					System.out.println("starting grid observer");
+				if (gameUUID.equals("local")) {
+					new GridObserver(controller, out);					
+				} else {
+					System.out.println("starting grid observer for"+gameUUID);
 					new GridObserver(gameInstances.get(
 							UUID.fromString(gameUUID)).getController(), out);
-				} else {
-					new GridObserver(new FiveWinsController(new Field(8)), out);
 				}
 			}
 		};
