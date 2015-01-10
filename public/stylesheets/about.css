@@ -1,0 +1,39 @@
+.wrapper {
+	height: 100% !important;
+	height: 100%;
+	margin: 0 auto;
+	overflow: hidden;
+	font-size: 12pt;
+}
+
+.main {
+	float: left;
+	width: 100%;
+	margin: 0 auto;
+}
+
+.main section .page_container {
+	position: relative;
+	top: 15%;
+	margin: 0 auto 0;
+	z-index: 3;
+}
+
+.main section {
+	overflow: hidden;
+}
+
+.main section.page1 {
+	background: #006633;
+	color: #DFF0E7;
+	font-size: 12pt;
+}
+
+/* for dummie files */
+#dummy_play_field {
+  display: inline-block;
+}
+
+#dummy_configure_field {
+  display: inline-block;
+}

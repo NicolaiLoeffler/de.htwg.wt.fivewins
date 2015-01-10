@@ -15,13 +15,20 @@ public class GridObserver implements IObserver {
 	private Out<String> out;
 	private IFiveWinsController controller;
 
-
+	/**
+	 * Constructor
+	 * @param controller
+	 * @param out
+	 */
 	public GridObserver(IFiveWinsController controller,WebSocket.Out<String> out) {
 		controller.addObserver(this);
 		this.controller = controller;
 		this.out = out;
 	}
 
+	/**
+	 * Override method from IObserver. Sends changed data to game.
+	 */
 	@Override
 	public void update() {
 		Map<String, String> map = new HashMap<String, String>();
@@ -48,14 +55,8 @@ public class GridObserver implements IObserver {
 			}
 		}
 		
-
         map.put("gameField", Json.stringify(Json.toJson(tmpGameField)));
 		
         out.write(Json.stringify(Json.toJson(map)));
-        
-//		out.write(Json.stringify(Json.toJson(tmpGameField)));
-
-		
-//				out.write(Json.stringify(Json.toJson(controller.getField())));
 	}
 }
