@@ -22,7 +22,6 @@ $('#radioBtn a').on('click', function(){
     	<div id="radioBtn" class="btn-group">
     		<a class="btn btn-default btn-md" data-toggle="gameType" data-title="NPC">Player vs. NPC</a>
             <a class="btn btn-default btn-md active" data-toggle="gameType" data-title="PVP">Player vs. Player</a>
-    		<a class="btn btn-default btn-md" data-toggle="gameType" data-title="PVPOI">Player vs. Player over Internet</a>
     	</div>
     	<input type="hidden" name="gameType" id="gameType" value="PVP">
    	</div>
@@ -34,7 +33,7 @@ $('#radioBtn a').on('click', function(){
 	</div>
 	<div class="col-md-4" style="text-align: center;">
 		<a class="btn btn-outline btn-lg" ng-click="addEventListener()">Play Now!</a>
-		<a class="btn btn-outline btn-lg" ng-click="joinOnlineGame()">Join Online Game!</a>
+		<a class="btn btn-outline btn-lg" ng-click="joinOnlineGame()">Join a 8x8 Online Game!</a>
 	</div>
 </div>
 <div style="background-color: #006633; padding-bottom: 40px; padding-top:40px; text-align: center;">
@@ -49,4 +48,5 @@ $('#radioBtn a').on('click', function(){
 <div id="gameOptions" class="container" style="display: none;">
   <div class="col-md-6">Number of turns: {{numberOfTurns}}</div>
   <div class="col-md-6">Current Player: {{currentPlayer}}</div>
+  <div class="col-md-6">You are Player: {{playerId}}</div>
 </div>

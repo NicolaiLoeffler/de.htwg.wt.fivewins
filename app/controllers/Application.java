@@ -1,6 +1,7 @@
 package controllers;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -14,6 +15,9 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.WebSocket;
 import models.GameInstance;
+
+
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class Application extends Controller {
 
@@ -107,6 +111,8 @@ public class Application extends Controller {
 					new GridObserver(controller, out);					
 				} else {
 					System.out.println("starting grid observer for"+gameUUID);
+					gameInstances.get(
+							UUID.fromString(gameUUID)).setOut(out);
 					new GridObserver(gameInstances.get(
 							UUID.fromString(gameUUID)).getController(), out);
 				}
@@ -115,21 +121,25 @@ public class Application extends Controller {
 	}
 
 	public static Result joinOnlineGame() {
+		ObjectNode result = Json.newObject();
+		String playerId;
 		GameInstance gameInstance = getJoinableGame();
 		if (gameInstance == null) {
 			gameInstance = new GameInstance("X", new FiveWinsController(
 					new Field(8)));
 			gameInstances.put(gameInstance.gameUUID, gameInstance);
-			session("playerId","X");
+			playerId = "X";
 			System.out.println(gameInstance.getGameId()+" player X joined");
 		} else {
 			gameInstance.setPlayer2("O");
-			session("playerId","O");
+			playerId = "O";
 			System.out.println(gameInstance.getGameId()+" player O joined");
 			System.out.println(gameInstance.getGameId()+" is ready to play");
 		}
 		session("gameId", gameInstance.gameUUID + "");
-		return ok();
+		session("playerId",playerId);
+		result.put("playerId", playerId);
+		return ok(result);
 	}
 
 	public static GameInstance getJoinableGame() {

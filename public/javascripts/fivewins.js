@@ -55,6 +55,8 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 	$scope.numberOfTurns = 0;
 
 	$scope.currentPlayer = 'X';
+	
+	$scope.playerId;
 
 	$scope.winner = '';
 	$scope.draw = false;
@@ -94,9 +96,7 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 	};
 	
 	$scope.joinOnlineGame = function() {
-		console.log('isGameStarted = true');
 		console.log($('#gameType').val());
-		$scope.isGameStarted = true;
 		$("#config").toggle('slow');
 		// $('#config').hide();
 		$('#gameOptions').show('slow');
@@ -104,16 +104,24 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 		$scope.resizeField();
 		// ajax call to start game
 		$.post("/game/playOnline", function(data) {
-			console.log("Initial Game(PVPonline).");			
+			console.log("Initial Game(PVPonline).");
+			$scope.playerId = data.playerId;
+			console.log("playerId"+data.playerId);
+			// start game instantly for Player O
+			if($scope.playerId == 'O'){
+				$scope.isGameStarted = true;
+				console.log('isGameStarted = true');
+			}else{
+				document.getElementById('field').style.display = 'none';
+			}
+			$scope.$apply();
 		});
 		
 		// without time out socket init is to fast and GameFieldObserver is
 		// initialised with old gameId
 		setTimeout(function(){
 			$scope.initWebsocket();
-		}, 3000);
-		
-		
+		}, 3000);	
 	}
 
 	$scope.pressed = function($event) {
@@ -148,6 +156,10 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 		});
 
 	};
+	
+	$(window).unload(function() {
+		  alert( "Bye now!" );
+	});
 
 	$scope.initWebsocket = function() {
 
@@ -168,9 +180,18 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 			};
 
 			socket.onmessage = function(msg) {
+				var data = JSON.parse(msg.data);
+				
+				if(data.started == "true"){
+					$scope.isGameStarted = 'true';
+					console.log('isGameStarted = true');
+					document.getElementById('field').style.display = 'inline-block';
+					return;
+				}
+				
 				console.log('Socket: onmessage()');
 				// update Gamefield
-				var data = JSON.parse(msg.data);
+				
 				$scope.field = JSON.parse(data.gameField);
 				$scope.numberOfTurns++;
 				$scope.currentPlayer = data.playerSign;
