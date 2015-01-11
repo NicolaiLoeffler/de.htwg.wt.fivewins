@@ -81,7 +81,6 @@ public class Application extends Controller {
 				return ok();
 			}
 			c.handleInputOrQuit(col + "," + r);
-			System.out.println("set cell online");
 		}
 		return ok();
 	}
@@ -100,12 +99,7 @@ public class Application extends Controller {
 	 */
 	public static WebSocket<String> connectWebSocket() {
 		final String gameUUID = session("gameId");
-		/*if(gameUUID == null){
-			System.out.println("Is null");
-		}
-		if(gameUUID.equals("")){
-			System.out.println("empty String");
-		}*/
+
 		return new WebSocket<String>() {
 			public void onReady(WebSocket.In<String> in,
 					WebSocket.Out<String> out) {
@@ -126,14 +120,15 @@ public class Application extends Controller {
 			gameInstance = new GameInstance("X", new FiveWinsController(
 					new Field(8)));
 			gameInstances.put(gameInstance.gameUUID, gameInstance);
+			session("playerId","X");
+			System.out.println(gameInstance.getGameId()+" player X joined");
 		} else {
 			gameInstance.setPlayer2("O");
+			session("playerId","O");
+			System.out.println(gameInstance.getGameId()+" player O joined");
+			System.out.println(gameInstance.getGameId()+" is ready to play");
 		}
 		session("gameId", gameInstance.gameUUID + "");
-		System.out.println(session("gameId"));
-		for (UUID id : gameInstances.keySet()) {
-			System.out.println("Game Instance " + id);
-		}
 		return ok();
 	}
 

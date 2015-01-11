@@ -106,7 +106,14 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 		$.post("/game/playOnline", function(data) {
 			console.log("Initial Game(PVPonline).");			
 		});
-		$scope.initWebsocket();
+		
+		// without time out socket init is to fast and GameFieldObserver is
+		// initialised with old gameId
+		setTimeout(function(){
+			$scope.initWebsocket();
+		}, 3000);
+		
+		
 	}
 
 	$scope.pressed = function($event) {
