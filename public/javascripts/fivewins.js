@@ -56,11 +56,11 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 
 	$scope.currentPlayer = 'X';
 	
-	$scope.playerId;
+	$scope.playerId = "";
 
 	$scope.winner = '';
 	$scope.draw = false;
-
+	
 	// functions
 	$scope.resizeField = function() {
 		newArray = [];
@@ -96,6 +96,7 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 	};
 	
 	$scope.joinOnlineGame = function() {
+			
 		console.log($('#gameType').val());
 		$("#config").toggle('slow');
 		// $('#config').hide();
@@ -121,11 +122,14 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 		// initialised with old gameId
 		setTimeout(function(){
 			$scope.initWebsocket();
-		}, 3000);	
+		}, 2000);	
 	}
 
 	$scope.pressed = function($event) {
 		if ($scope.isGameStarted) {
+			if($scope.playerId != $scope.currentPlayer && $scope.playerId !== ""){
+				return;
+			}
 			console.log($event.target);
 			row = $($event.target).parent().attr("id").split("_")[1];
 			cell = $($event.target).attr("id");
@@ -156,10 +160,6 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 		});
 
 	};
-	
-	$(window).unload(function() {
-		  alert( "Bye now!" );
-	});
 
 	$scope.initWebsocket = function() {
 
