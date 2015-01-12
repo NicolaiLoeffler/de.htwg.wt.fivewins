@@ -27,6 +27,7 @@ public class GameInstance {
 		this.player2 = name;
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("started", "true");
+		map.put("gameUUID", gameUUID.toString());
 		System.out.println("sending msg to player 1");
 		outPlayer1.write(Json.stringify(Json.toJson(map)));
 	}

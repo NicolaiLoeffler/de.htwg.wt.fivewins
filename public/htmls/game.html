@@ -90,7 +90,7 @@
 					ngclick="logout()" style="display: none">Abmelden</button>
 			</div>
 			<div>
-				<button class="btn btn-outline btn-lg" id="continu" onclick="continu()" style="display: none;">Play</button>
+				<button class="btn btn-outline btn-lg" id="continu" onclick="continu()" style="display: normal;">Play</button>
 			</div>
 		</div>
 	</div>
@@ -100,6 +100,8 @@
 	$(document).ready(function() {
 		$.getScript("https://apis.google.com/js/client:platform.js");
 	});
+	var signedIn = false;
+	
 	function signinCallback(authResult) {
 		if (authResult['status']['signed_in']) {
 			// Update the app to reflect a signed in user

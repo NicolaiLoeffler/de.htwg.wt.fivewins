@@ -3,6 +3,7 @@ package models;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import play.libs.Json;
 import play.mvc.WebSocket;
@@ -14,16 +15,18 @@ public class GridObserver implements IObserver {
 	
 	private Out<String> out;
 	private IFiveWinsController controller;
+	private String gameUUID;
 
 	/**
 	 * Constructor
 	 * @param controller
 	 * @param out
 	 */
-	public GridObserver(IFiveWinsController controller,WebSocket.Out<String> out) {
+	public GridObserver(IFiveWinsController controller,WebSocket.Out<String> out, String gameUUID) {
 		controller.addObserver(this);
 		this.controller = controller;
 		this.out = out;
+		this.gameUUID = gameUUID;
 	}
 
 	/**
@@ -39,6 +42,7 @@ public class GridObserver implements IObserver {
         map.put("isWon", Boolean.toString(controller.getWinner()));
         map.put("winner", controller.getWinnerSign());
         map.put("playerLeft", Boolean.toString(controller.getPlayerLeft()));
+        map.put("gameUUID", this.gameUUID);
       	
 		//preparation of gamefield
 		String[][] gameField = controller.getField();

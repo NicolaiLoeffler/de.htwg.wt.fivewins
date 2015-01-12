@@ -108,13 +108,13 @@ public class Application extends Controller {
 			public void onReady(WebSocket.In<String> in,
 					WebSocket.Out<String> out) {
 				if (gameUUID.equals("local")) {
-					new GridObserver(controller, out);					
+					new GridObserver(controller, out, gameUUID);					
 				} else {
 					System.out.println("starting grid observer for"+gameUUID);
 					gameInstances.get(
 							UUID.fromString(gameUUID)).setOut(out);
 					new GridObserver(gameInstances.get(
-							UUID.fromString(gameUUID)).getController(), out);
+							UUID.fromString(gameUUID)).getController(), out, gameUUID);
 				}
 			}
 		};
@@ -139,6 +139,7 @@ public class Application extends Controller {
 		session("gameId", gameInstance.gameUUID + "");
 		session("playerId",playerId);
 		result.put("playerId", playerId);
+		result.put("gameUUID", gameInstance.gameUUID.toString());
 		return ok(result);
 	}
 

@@ -62,6 +62,7 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 	$scope.draw = false;
 	
 	$scope.isInPvPOnlineGame = false;
+	$scope.gameUUID;
 	
 	// functions
 	$scope.resizeField = function() {
@@ -109,6 +110,7 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 		$.post("/game/playOnline", function(data) {
 			console.log("Initial Game(PVPonline).");
 			$scope.playerId = data.playerId;
+			$scope.gameUUID = data.gameUUID;
 			$scope.$apply();
 			console.log("playerId"+data.playerId);
 			// start game instantly for Player O
@@ -194,7 +196,13 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 			};
 
 			socket.onmessage = function(msg) {
+				
 				var data = JSON.parse(msg.data);
+				//only recognize msg for active gameUUID
+				if(data.gameUUID != $scope.gameUUID && $scope.isInPvPOnlineGame){
+					console.log("not recognized");
+					return;
+				}
 				
 				if(data.started == "true"){
 					$scope.isGameStarted = 'true';
@@ -269,12 +277,13 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 	});
 	
 	$scope.handlePlayerLeft = function(){
-		if($scope.isInPvPOnlineGame){
+		if($scope.isInPvPOnlineGame && $scope.winner != ''){
 			$scope.isGameStarted = false;
 			console.log("Stopping PvPonlineGame");
 			$.post("/stopGame", function(data) {
 			});
 		}
+		$scope.gameUUID = '';
 	}
 
 });
