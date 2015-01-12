@@ -14,54 +14,107 @@
 			});
 //-->
 </script>
+<div ng-controller="FiveWinsGameCtrl">
+	<div id="config" class="container" style="padding-bottom: 20px;">
+		<p>
+		<h1>Configure your Game</h1>
+		</p>
+		<div class="col-md-8" style="padding-bottom: 20px;">
+			<input id="range" type="range" ng-model="fieldSize"
+				ng-change="resizeField();" min="5" max="20" value="8" /> <br /> <br />
 
-<div id="config" class="container" style="padding-bottom: 20px;">
-	<p>
-	<h1>Configure your Game</h1>
-	</p>
-	<div class="col-md-8" style="padding-bottom: 20px;">
-		<input id="range" type="range" ng-model="fieldSize"
-			ng-change="resizeField();" min="5" max="20" value="8" /> <br />
-		<br />
-
-		<div class="input-group" style="margin: 0 auto;">
-			<div id="radioBtn" class="btn-group">
-				<a class="btn btn-default btn-md" data-toggle="gameType"
-					data-title="NPC">Player vs. NPC</a> <a
-					class="btn btn-default btn-md active" data-toggle="gameType"
-					data-title="PVP">Player vs. Player</a>
+			<div class="input-group" style="margin: 0 auto;">
+				<div id="radioBtn" class="btn-group">
+					<a class="btn btn-default btn-md" data-toggle="gameType"
+						data-title="NPC">Player vs. NPC</a> <a
+						class="btn btn-default btn-md active" data-toggle="gameType"
+						data-title="PVP">Player vs. Player</a>
+				</div>
+				<input type="hidden" name="gameType" id="gameType" value="PVP">
 			</div>
-			<input type="hidden" name="gameType" id="gameType" value="PVP">
+
+			<!-- More options for NPC -->
 		</div>
-
-		<!-- More options for NPC -->
-
-
-
-	</div>
-	<div class="col-md-4" style="text-align: center;">
-		<a class="btn btn-outline btn-lg" ng-click="addEventListener()">Play
-			Now!</a> <a class="btn btn-outline btn-lg" ng-href="/#/login">Join
-			a 8x8 Online Game!</a>
-	</div>
-</div>
-<div id="field-container"
-	style="height: 80%; background-color: #006633; padding-bottom: 40px; padding-top: 40px; text-align: center;">
-
-	<div id="field">
-		<div class="row" id="row_{{$index}}"
-			ng-repeat="column in field track by $index">
-			<div class="cell" id="{{$index}}"
-				ng-repeat="cell in column track by $index"
-				ng-click="pressed($event)">{{cell}}</div>
+		<div class="col-md-4" style="text-align: center;">
+			<a class="btn btn-outline btn-lg" ng-click="addEventListener()">Play
+				Now!</a> <a class="btn btn-outline btn-lg" ng-click=login()>Join a
+				8x8 Online Game!</a>
 		</div>
 	</div>
-	<div id="spinner-container">
-	</div>
+	<div id="field-container"
+		style="background-color: #006633; padding-bottom: 40px; padding-top: 40px; text-align: center;">
 
+		<div id="field">
+			<div class="row" id="row_{{$index}}"
+				ng-repeat="column in field track by $index">
+				<div class="cell" id="{{$index}}"
+					ng-repeat="cell in column track by $index"
+					ng-click="pressed($event)">{{cell}}</div>
+			</div>
+		</div>
+		<div id="spinner-container"></div>
+	</div>
+	<div id="gameOptions" class="container" style="display: none;">
+		<div class="col-md-6">Number of turns: {{numberOfTurns}}</div>
+		<div class="col-md-6">Current Player: {{currentPlayer}}</div>
+		<div class="col-md-6">You are Player: {{playerId}}</div>
+	</div>
+	<div class="container" id="logins" style="display: none;">
+		<div class="col-md-4"></div>
+		<div class="col-md-4">
+			<login-form></login-form>
+			<h1>Login with Google</h1>
+			<div id="signinButton">
+				<span class="g-signin" data-callback="signinCallback"
+					data-clientid="747624574509-i6nesa9okgcdaiuennf9qfcp2m69long.apps.googleusercontent.com"
+					data-cookiepolicy="single_host_origin"
+					data-requestvisibleactions="http://schema.org/AddAction"
+					data-scope="https://www.googleapis.com/auth/plus.login"> </span>
+			</div>
+			<div>
+				<button id="signoutButton" class="btn btn-outline btn-lg"
+					ngclick="logout()" style="display: none">Abmelden</button>
+			</div>
+			<div>
+				<button class="btn btn-outline btn-lg" onclick="continu()">Skip login</button>
+			</div>
+		</div>
+	</div>
 </div>
-<div id="gameOptions" class="container" style="display: none;">
-	<div class="col-md-6">Number of turns: {{numberOfTurns}}</div>
-	<div class="col-md-6">Current Player: {{currentPlayer}}</div>
-	<div class="col-md-6">You are Player: {{playerId}}</div>
-</div>
+<link rel="import" href="/assets/elements/login-form.html">
+<script>
+	$(document).ready(function() {
+		$.getScript("https://apis.google.com/js/client:platform.js");
+	});
+	function signinCallback(authResult) {
+		if (authResult['status']['signed_in']) {
+			// Update the app to reflect a signed in user
+			// Hide the sign-in button now that the user is authorized, for example:
+			continu();
+		} else {
+			if (authResult['error'] == "user_signed_out") {
+				document.getElementById('signinButton').setAttribute('style',
+						'display: normal');
+				document.getElementById('signoutButton').setAttribute('style',
+						'display: none');
+			}
+			// Possible error values:
+			//   "user_signed_out" - User is signed-out
+			//   "access_denied" - User denied access to your app
+			//   "immediate_failed" - Could not automatically log in the user
+			console.log('Sign-in state: ' + authResult['error']);
+		}
+	}
+	function logout() {
+		gapi.auth.signOut();
+	}
+	function continu() {
+		$("#config").toggle();
+		$("#field-container").toggle();
+		$("#logins").toggle();
+		angular.element(document.getElementById('field-container')).scope()
+				.joinOnlineGame();
+		angular.element(document.getElementById('field-container')).scope()
+				.$apply();
+	}
+</script>

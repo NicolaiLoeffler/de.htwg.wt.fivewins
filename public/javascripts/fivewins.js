@@ -98,7 +98,7 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 	$scope.joinOnlineGame = function() {
 			
 		console.log($('#gameType').val());
-		$("#config").toggle('slow');
+		$("#config").toggle();
 		// $('#config').hide();
 		$('#gameOptions').show('slow');
 		$scope.fieldSize = 8;
@@ -107,6 +107,7 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 		$.post("/game/playOnline", function(data) {
 			console.log("Initial Game(PVPonline).");
 			$scope.playerId = data.playerId;
+			$scope.$apply();
 			console.log("playerId"+data.playerId);
 			// start game instantly for Player O
 			if($scope.playerId == 'O'){
@@ -114,15 +115,15 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 				console.log('isGameStarted = true');
 			}else{
 				document.getElementById('field').style.display = 'none';
-			}
-			$scope.$apply();
+			}			
 		});
 		
 		// without time out socket init is to fast and GameFieldObserver is
 		// initialised with old gameId
 		setTimeout(function(){
 			$scope.initWebsocket();
-		}, 2000);	
+		}, 2000);
+		$scope.$apply();
 	}
 
 	$scope.pressed = function($event) {
@@ -252,6 +253,12 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 	
 	$scope.logout = function() {
 		gapi.auth.signOut();
+	};
+	$scope.login = function() {
+		$("#config").toggle('slow');
+		$("#field-container").toggle('slow');
+		$("#logins").toggle('slow');
+		
 	};
 
 });
