@@ -114,7 +114,9 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 				$scope.isGameStarted = true;
 				console.log('isGameStarted = true');
 			}else{
-				document.getElementById('field').style.display = 'none';
+//				document.getElementById('field').style.display = 'none';
+				console.log("Wait for player2.");
+				$scope.animateLoad();
 			}			
 		});
 		
@@ -186,7 +188,8 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 				if(data.started == "true"){
 					$scope.isGameStarted = 'true';
 					console.log('isGameStarted = true');
-					document.getElementById('field').style.display = 'inline-block';
+//					document.getElementById('field').style.display = 'inline-block';
+					$scope.stopAnimateLoad();
 					return;
 				}
 				
@@ -260,5 +263,15 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 		$("#logins").toggle('slow');
 		
 	};
+	
+	$scope.animateLoad = function() {
+		$("#back").show();
+	}
+
+	$scope.stopAnimateLoad = function() {
+		$("#back").hide();
+	}
 
 });
+
+
