@@ -12,30 +12,6 @@
 				$('a[data-toggle="' + tog + '"][data-title="' + sel + '"]')
 						.addClass('active');
 			});
-
-$(document).ready(function() {
-
-var opts = {
-		  lines: 13, // The number of lines to draw
-		  length: 20, // The length of each line
-		  width: 10, // The line thickness
-		  radius: 30, // The radius of the inner circle
-		  corners: 1, // Corner roundness (0..1)
-		  rotate: 0, // The rotation offset
-		  direction: 1, // 1: clockwise, -1: counterclockwise
-		  color: '#000', // #rgb or #rrggbb or array of colors
-		  speed: 1, // Rounds per second
-		  trail: 60, // Afterglow percentage
-		  shadow: false, // Whether to render a shadow
-		  hwaccel: false, // Whether to use hardware acceleration
-		  className: 'spinner', // The CSS class to assign to the spinner
-		  zIndex: 2e9, // The z-index (defaults to 2000000000)
-		  top: '50%', // Top position relative to parent
-		  left: '50%' // Left position relative to parent
-		};
-		var target = document.getElementById('wait');
-		var spinner = new Spinner(opts).spin(target);
-});
 //-->
 </script>
 <style>
@@ -114,7 +90,7 @@ var opts = {
 					ngclick="logout()" style="display: none">Abmelden</button>
 			</div>
 			<div>
-				<button class="btn btn-outline btn-lg" onclick="continu()">Skip login</button>
+				<button class="btn btn-outline btn-lg" id="continu" onclick="continu()" style="display: none;">Play</button>
 			</div>
 		</div>
 	</div>
@@ -128,7 +104,8 @@ var opts = {
 		if (authResult['status']['signed_in']) {
 			// Update the app to reflect a signed in user
 			// Hide the sign-in button now that the user is authorized, for example:
-			continu();
+			document.getElementById('continu').setAttribute('style',
+			'display: normal');
 		} else {
 			if (authResult['error'] == "user_signed_out") {
 				document.getElementById('signinButton').setAttribute('style',
