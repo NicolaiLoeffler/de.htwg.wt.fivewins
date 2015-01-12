@@ -157,4 +157,10 @@ public class Application extends Controller {
 		UUID gameId = UUID.fromString(session("gameId"));
 		return gameInstances.get(gameId);
 	}
+	public static Result stopGame(){
+		System.out.println("Stopping Game");
+		IFiveWinsController c = gameInstances.get(UUID.fromString(session("gameId"))).getController();
+		c.handleInputOrQuit("q");
+		return ok();
+	}
 }

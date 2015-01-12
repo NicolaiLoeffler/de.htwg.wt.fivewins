@@ -155,4 +155,19 @@ var opts = {
 		angular.element(document.getElementById('field-container')).scope()
 				.$apply();
 	}
+	
+	// go to about page, handled here because about is not routed via AngularJs
+	var elem = document.getElementById('about');
+	elem.addEventListener ('click', handleAbout, true);
+	function handleAbout(){
+		angular.element(document.getElementById('field-container')).scope()
+		.handlePlayerLeft();
+	}
+	
+	// tab closed
+	window.addEventListener("beforeunload", function (e) {
+		angular.element(document.getElementById('field-container')).scope()
+		.handlePlayerLeft();
+	});
+	
 </script>

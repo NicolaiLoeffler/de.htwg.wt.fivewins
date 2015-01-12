@@ -61,6 +61,8 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 	$scope.winner = '';
 	$scope.draw = false;
 	
+	$scope.isInPvPOnlineGame = false;
+	
 	// functions
 	$scope.resizeField = function() {
 		newArray = [];
@@ -125,6 +127,7 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 		setTimeout(function(){
 			$scope.initWebsocket();
 		}, 2000);
+		$scope.isInPvPOnlineGame = true;
 		$scope.$apply();
 	}
 
@@ -163,6 +166,14 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 		});
 
 	};
+	
+	$scope.endResultPlayerLeft = function(){
+		$scope.isGameStarted = false;
+		$("#config").empty();
+		$("#config").load('/assets/htmls/playerLeft.html', function() {
+			$("#config").show('slow');
+		});
+	}
 
 	$scope.initWebsocket = function() {
 
@@ -202,16 +213,24 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 				$scope.winner = data.winner;
 				$scope.draw = data.isDraw;
 				$scope.$apply();
+				
+				console.log(data.status);
+				console.log(data);
+				if(data.playerLeft == "true"){
+					console.log("playerLeft");
+					$scope.endResultPlayerLeft();
+					return;
+				}
 				if (data.isWon == "true") {
+					console.log("isWon");
 					$scope.endResult();
 					return;
 				}
 				if (data.isDraw == "true") {
+					console.log("isDraw");
 					$scope.endResultDraw();
 					return;
 				}
-				console.log(data.status);
-				console.log(data);
 			};
 
 			socket.onclose = function() {
@@ -230,33 +249,6 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 		// End connect
 	};
 	
-	$scope.signinCallback = function (authResult) {
-		if (authResult['status']['signed_in']) {
-			// Update the app to reflect a signed in user
-			// Hide the sign-in button now that the user is authorized, for example:
-			document.getElementById('signinButton').setAttribute('style',
-					'display: none');
-			document.getElementById('signoutButton').setAttribute('style',
-					'display: normal');
-			$scope.joinOnlineGame();
-		} else {
-			if (authResult['error'] == "user_signed_out") {
-				document.getElementById('signinButton').setAttribute('style',
-						'display: normal');
-				document.getElementById('signoutButton').setAttribute('style',
-						'display: none');
-			}
-			// Possible error values:
-			//   "user_signed_out" - User is signed-out
-			//   "access_denied" - User denied access to your app
-			//   "immediate_failed" - Could not automatically log in the user
-			console.log('Sign-in state: ' + authResult['error']);
-		}
-	};
-	
-	$scope.logout = function() {
-		gapi.auth.signOut();
-	};
 	$scope.login = function() {
 		$("#config").toggle('slow');
 		$("#field-container").toggle('slow');
@@ -270,6 +262,19 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 
 	$scope.stopAnimateLoad = function() {
 		$("#back").hide();
+	}
+	
+	$scope.$on('$locationChangeStart', function( event ) {
+		$scope.handlePlayerLeft();
+	});
+	
+	$scope.handlePlayerLeft = function(){
+		if($scope.isInPvPOnlineGame){
+			$scope.isGameStarted = false;
+			console.log("Stopping PvPonlineGame");
+			$.post("/stopGame", function(data) {
+			});
+		}
 	}
 
 });

@@ -38,6 +38,7 @@ public class GridObserver implements IObserver {
         map.put("status", controller.getStatus());      
         map.put("isWon", Boolean.toString(controller.getWinner()));
         map.put("winner", controller.getWinnerSign());
+        map.put("playerLeft", Boolean.toString(controller.getPlayerLeft()));
       	
 		//preparation of gamefield
 		String[][] gameField = controller.getField();
