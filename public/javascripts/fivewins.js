@@ -89,6 +89,7 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 			$.post("/game/play/" + $scope.fieldSize, function(data) {
 				console.log("Initial Game(PVP).");
 				$scope.playerId = "X ";
+				$('#playerIdOutput').hide();
 				$scope.$apply();
 				$scope.initWebsocket();
 			});
