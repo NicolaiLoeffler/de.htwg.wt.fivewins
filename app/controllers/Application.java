@@ -200,4 +200,10 @@ public class Application extends Controller {
                 routes.Application.index()
             );
 	}
+	
+	public static Result googleLogin(String mail) {
+		session().clear();
+		session("connected", mail);
+		return ok();
+	}
 }
