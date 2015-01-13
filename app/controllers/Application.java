@@ -187,7 +187,7 @@ public class Application extends Controller {
     }
 	
 	public static Result isLoggedIn() {
-		if(session("connected")!= null) {
+		if(session("connected")== null) {
 			// user isn't logged in
 			return ok("false");
 		} else
@@ -199,5 +199,11 @@ public class Application extends Controller {
 		return redirect(
                 routes.Application.index()
             );
+	}
+	
+	public static Result googleLogin(String mail) {
+		session().clear();
+		session("connected", mail);
+		return ok();
 	}
 }
