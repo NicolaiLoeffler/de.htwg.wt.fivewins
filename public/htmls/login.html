@@ -1,43 +1,55 @@
-	<div class="container" id="logins" style="display: none;">
-		<div class="col-md-4"></div>
-		<div class="col-md-4">
-			<login-form></login-form>
-			<h1>Login with Google</h1>
-			<div id="signinButton">
-				<span class="g-signin" data-callback="signinCallback"
-					data-clientid="747624574509-i6nesa9okgcdaiuennf9qfcp2m69long.apps.googleusercontent.com"
-					data-cookiepolicy="single_host_origin"
-					data-requestvisibleactions="http://schema.org/AddAction"
-					data-scope="https://www.googleapis.com/auth/plus.login"> </span>
-			</div>
-			<div>
-				<button id="signoutButton" class="btn btn-outline btn-lg"
-					ngclick="logout()" style="display: none">Abmelden</button>
-			</div>
-			<div>
-				<button class="btn btn-outline btn-lg" id="continu" onclick="continu()" style="display: none;">Play</button>
-			</div>
+<div class="container" id="logins" style="display: none;">
+	<div class="col-md-4"></div>
+	<div class="col-md-4">
+		<login-form></login-form>
+		<h1>Login with Google</h1>
+		<div id="signinButton">
+			<span class="g-signin" data-callback="signinCallback"
+				data-clientid="747624574509-i6nesa9okgcdaiuennf9qfcp2m69long.apps.googleusercontent.com"
+				data-cookiepolicy="single_host_origin"
+				data-requestvisibleactions="http://schema.org/AddAction"
+				data-scope="https://www.googleapis.com/auth/plus.login"> </span>
 		</div>
 	</div>
 </div>
+<div class="container" id="signedIn" style="display: none;">
+	<div class="col-md-4"></div>
+	<div class="col-md-8">
+		<h1>
+			Welcome, you are now logged in!<br> Press play to start your
+			game
+		</h1>
+		<button class="btn btn-outline btn-lg" id="continu"
+			onclick="continu()" style="margin: 0 auto">Play</button>
+	</div>
+	<div class="col-md-4"></div>
+</div>
+
+
 <link rel="import" href="/assets/elements/login-form.html">
 <script>
 	$(document).ready(function() {
 		$.getScript("https://apis.google.com/js/client:platform.js");
 	});
 	var signedIn = false;
-	
+
 	function signinCallback(authResult) {
 		if (authResult['status']['signed_in']) {
 			// Update the app to reflect a signed in user
 			// Hide the sign-in button now that the user is authorized, for example:
-			document.getElementById('continu').setAttribute('style',
-			'display: normal');
+			document.getElementById('logins').setAttribute('style',
+					'display: none');
+			document.getElementById('signedIn').setAttribute('style',
+					'display: normal');
+			document.getElementById('logout').setAttribute('style',
+					'display: normal');
 		} else {
 			if (authResult['error'] == "user_signed_out") {
-				document.getElementById('signinButton').setAttribute('style',
+				document.getElementById('logins').setAttribute('style',
 						'display: normal');
-				document.getElementById('signoutButton').setAttribute('style',
+				document.getElementById('signedIn').setAttribute('style',
+						'display: none');
+				document.getElementById('logout').setAttribute('style',
 						'display: none');
 			}
 			// Possible error values:
@@ -47,9 +59,13 @@
 			console.log('Sign-in state: ' + authResult['error']);
 		}
 	}
+	
 	function logout() {
+		document.getElementById('logout').setAttribute('style',
+				'display: normal');
 		gapi.auth.signOut();
 	}
+
 	function continu() {
 		$("#config").toggle();
 		$("#field-container").toggle();
@@ -59,8 +75,14 @@
 		angular.element(document.getElementById('field-container')).scope()
 				.$apply();
 	}
+
 	
 	function localLogin() {
 		alert($("uniqueName").val());
 	}
+
+	$('#logout').bind('click', function() {
+		gapi.auth.signOut();
+	});
+
 </script>

@@ -104,6 +104,15 @@ body {
 	color: #FFFFFF;
 	background-color: #006633;
 	font-size: 18px;
-	border: 30px solid #006633 ;
-	white-space:normal;
+	border: 30px solid #006633;
+	white-space: normal;
+}
+
+li.right {
+	float: right;
+}
+
+li {
+	cursor: pointer;
+	cursor: hand;
 }
