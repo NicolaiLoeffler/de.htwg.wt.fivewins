@@ -88,11 +88,15 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 		if ($('#gameType').val() == "PVP") {
 			$.post("/game/play/" + $scope.fieldSize, function(data) {
 				console.log("Initial Game(PVP).");
+				$scope.playerId = "X ";
+				$scope.$apply();
 				$scope.initWebsocket();
 			});
 		} else if ($('#gameType').val() == "NPC") {
 			$.post("/game/play/" + $scope.fieldSize + "/NPC/O", function(data) {
 				console.log("Initial Game(NPC).");
+				$scope.playerId = "X";
+				$scope.$apply();
 				$scope.initWebsocket();
 			});
 		}
@@ -135,7 +139,7 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 
 	$scope.pressed = function($event) {
 		if ($scope.isGameStarted) {
-			if($scope.playerId != $scope.currentPlayer && $scope.playerId !== ""){
+			if($scope.playerId != $scope.currentPlayer && $scope.playerId !== "X "){
 				return;
 			}
 			console.log($event.target);
