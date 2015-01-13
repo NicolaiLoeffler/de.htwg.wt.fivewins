@@ -12,21 +12,58 @@
 				$('a[data-toggle="' + tog + '"][data-title="' + sel + '"]')
 						.addClass('active');
 			});
+	
+$(document).ready(function() {
+	
+	var opts = {
+		lines: 13, // The number of lines to draw
+		length: 20, // The length of each line
+		width: 10, // The line thickness
+		radius: 30, // The radius of the inner circle
+		corners: 1, // Corner roundness (0..1)
+		rotate: 0, // The rotation offset
+		direction: 1, // 1: clockwise, -1: counterclockwise
+		color: '#FFFFFF', // #rgb or #rrggbb or array of colors
+		speed: 1, // Rounds per second
+		trail: 60, // Afterglow percentage
+		shadow: false, // Whether to render a shadow
+		hwaccel: false, // Whether to use hardware acceleration
+		className: 'spinner', // The CSS class to assign to the spinner
+		zIndex: 2e9, // The z-index (defaults to 2000000000)
+		top: '50%', // Top position relative to parent
+		left: '50%' // Left position relative to parent
+		};
+		var target = document.getElementById('wait');
+		var spinner = new Spinner(opts).spin(target);
+	});
 //-->
 </script>
 <style>
 #back {
 	height:100%;
 	width:100%;
-	background-color: hsla(0, 0%, 0%, 0.5);
+	background-color: hsla(0, 0%, 0%, 0.8);
 	 position:   fixed;
 	 display:none;
 }
+
+#waitMessage {
+	display:none;
+	text-align:center;
+	position:fixed;
+	top:35%;
+	bottom:65%;
+	left:40%;
+	color:white;
+}
 </style>
+
+
 
 <div id="back">
 <div id="wait"></div>
 </div>
+<div id="waitMessage"><h1>Waiting for Player O.</h1></div>
 
 <div ng-controller="FiveWinsGameCtrl">
 	<div id="config" class="container" style="padding-bottom: 20px;">

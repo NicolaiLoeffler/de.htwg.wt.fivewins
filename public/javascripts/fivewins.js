@@ -271,10 +271,12 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 	
 	$scope.animateLoad = function() {
 		$("#back").show();
+		$("#waitMessage").show();
 	}
 
 	$scope.stopAnimateLoad = function() {
 		$("#back").hide();
+		$("#waitMessage").hide();
 	}
 	
 	$scope.$on('$locationChangeStart', function( event ) {
