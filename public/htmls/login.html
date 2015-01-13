@@ -11,13 +11,22 @@
 				data-requestvisibleactions="http://schema.org/AddAction"
 				data-scope="https://www.googleapis.com/auth/plus.login"> </span>
 		</div>
-		<div>
-			<button class="btn btn-outline btn-lg" id="continu"
-				onclick="continu()" style="display: none;">Play</button>
-		</div>
 	</div>
 </div>
+<div class="container" id="signedIn" style="display: none;">
+	<div class="col-md-4"></div>
+	<div class="col-md-8">
+		<h1>
+			Welcome, you are now logged in!<br> Press play to start your
+			game
+		</h1>
+		<button class="btn btn-outline btn-lg" id="continu"
+			onclick="continu()" style="margin: 0 auto">Play</button>
+	</div>
+	<div class="col-md-4"></div>
 </div>
+
+
 <link rel="import" href="/assets/elements/login-form.html">
 <script>
 	$(document).ready(function() {
@@ -31,7 +40,7 @@
 			// Hide the sign-in button now that the user is authorized, for example:
 			document.getElementById('logins').setAttribute('style',
 					'display: none');
-			document.getElementById('continu').setAttribute('style',
+			document.getElementById('signedIn').setAttribute('style',
 					'display: normal');
 			document.getElementById('logout').setAttribute('style',
 					'display: normal');
@@ -39,7 +48,7 @@
 			if (authResult['error'] == "user_signed_out") {
 				document.getElementById('logins').setAttribute('style',
 						'display: normal');
-				document.getElementById('continu').setAttribute('style',
+				document.getElementById('signedIn').setAttribute('style',
 						'display: none');
 				document.getElementById('logout').setAttribute('style',
 						'display: none');
@@ -51,7 +60,7 @@
 			console.log('Sign-in state: ' + authResult['error']);
 		}
 	}
-
+	
 	function logout() {
 		document.getElementById('logout').setAttribute('style',
 				'display: normal');
