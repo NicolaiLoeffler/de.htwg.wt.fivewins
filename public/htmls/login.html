@@ -24,9 +24,6 @@
 	</div>
 	<div class="col-md-4"></div>
 </div>
-<button class="btn btn-outline btn-lg" id="test" onclick="test()"
-	style="margin: 0 auto">Play</button>
-
 
 <link rel="import" href="/assets/elements/login-form.html">
 <script>
@@ -40,6 +37,7 @@
 			// Update the app to reflect a signed in user
 			// Hide the sign-in button now that the user is authorized, for example:
 			$.post("/googlelogin/" + authResult['id_token'], function(data) {
+				console.log("Logged in");
 			});
 			hideLoginForms();
 		} else {
@@ -57,7 +55,6 @@
 	function continu() {
 		$("#field-container").toggle();
 		$("#config").toggle();
-		$("#logins").toggle();
 		$("#signedIn").toggle();
 		angular.element(document.getElementById('field-container')).scope()
 				.joinOnlineGame();
@@ -70,8 +67,9 @@
 	}
 
 	$('#logout').bind('click', function() {
-		$("#logins").attr('style', 'display: normal');
-		$("#signedIn").attr('style', 'display: none');
+		$.post("/logout/", function(data) {
+			console.log("Logged out");
+		});
 		$("#logout").attr('style', 'display: none');
 		gapi.auth.signOut();
 	});
@@ -85,9 +83,5 @@
 		$("#logins").attr('style', 'display: normal');
 		$("#signedIn").attr('style', 'display: none');
 		$("#logout").attr('style', 'display: none');
-	}
-
-	function test() {
-		hideLoginForms();
 	}
 </script>
