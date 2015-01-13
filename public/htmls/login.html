@@ -1,4 +1,3 @@
-
 <div class="container" id="logins" style="display: none;">
 	<div class="col-md-4"></div>
 	<div class="col-md-4">
@@ -62,6 +61,12 @@
 		angular.element(document.getElementById('field-container')).scope()
 				.$apply();
 	}
+
+	
+	function localLogin() {
+		alert($("uniqueName").val());
+	}
+
 	$('#logout').bind('click', function() {
 		$("#logins").attr('style', 'display: normal');
 		$("#signedIn").attr('style', 'display: none');

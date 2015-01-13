@@ -11,6 +11,7 @@ POST	/game/play/:fieldSize/NPC/:sign		controllers.Application.newGameAI(fieldSiz
 POST	/game/playOnline					controllers.Application.joinOnlineGame()
 GET		/socket								controllers.Application.connectWebSocket()
 POST	/stopGame							controllers.Application.stopGame()
+POST	/login/:name/:password				controllers.Application.authenticate(name:String, password:String)
 
 
 # Map static resources from the /public folder to the /assets URL path
