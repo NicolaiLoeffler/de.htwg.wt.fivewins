@@ -120,6 +120,11 @@ public class Application extends Controller {
 		};
 	}
 
+	/**
+	 * join an existing gameinstance or create a new joinable instance
+	 * 
+	 * @return Result contains the playerId and the gameUUID
+	 */
 	public static Result joinOnlineGame() {
 		ObjectNode result = Json.newObject();
 		String playerId;
@@ -143,6 +148,11 @@ public class Application extends Controller {
 		return ok(result);
 	}
 
+	/**
+	 * gets an joinable game instance if one exists
+	 * 
+	 * @return GameInstance returns a joinable GameInstance or null if no joinable instance exists
+	 */
 	public static GameInstance getJoinableGame() {
 		for (UUID id : gameInstances.keySet()) {
 			GameInstance instance = gameInstances.get(id);
@@ -154,10 +164,11 @@ public class Application extends Controller {
 		return null;
 	}
 
-	private static GameInstance getGameInstance() {
-		UUID gameId = UUID.fromString(session("gameId"));
-		return gameInstances.get(gameId);
-	}
+	/**
+	 * stops the game of a session
+	 * 
+	 * @return Result
+	 */
 	public static Result stopGame(){
 		System.out.println("Stopping Game");
 		IFiveWinsController c = gameInstances.get(UUID.fromString(session("gameId"))).getController();
