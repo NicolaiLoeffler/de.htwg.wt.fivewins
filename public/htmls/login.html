@@ -24,8 +24,6 @@
 	</div>
 	<div class="col-md-4"></div>
 </div>
-<button class="btn btn-outline btn-lg" id="test" onclick="test()"
-	style="margin: 0 auto">Play</button>
 
 
 <link rel="import" href="/assets/elements/login-form.html">
@@ -57,7 +55,6 @@
 	function continu() {
 		$("#field-container").toggle();
 		$("#config").toggle();
-		$("#logins").toggle();
 		$("#signedIn").toggle();
 		angular.element(document.getElementById('field-container')).scope()
 				.joinOnlineGame();
