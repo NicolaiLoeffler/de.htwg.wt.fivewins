@@ -39,12 +39,12 @@
 		if (authResult['status']['signed_in']) {
 			// Update the app to reflect a signed in user
 			// Hide the sign-in button now that the user is authorized, for example:
+			$.post("/googlelogin/" + authResult['id_token'], function(data) {
+			});
 			hideLoginForms();
-			signedIn = true;
 		} else {
 			if (authResult['error'] == "user_signed_out") {
 				showLoginForms();
-				signedIn = false;
 			}
 			// Possible error values:
 			//   "user_signed_out" - User is signed-out
@@ -64,7 +64,6 @@
 				.$apply();
 	}
 
-	
 	function localLogin() {
 		alert($("uniqueName").val());
 	}
@@ -75,19 +74,19 @@
 		$("#logout").attr('style', 'display: none');
 		gapi.auth.signOut();
 	});
-	
-	function hideLoginForms(){
+
+	function hideLoginForms() {
 		$("#logins").attr('style', 'display: none');
 		$("#signedIn").attr('style', 'display: normal');
 		$("#logout").attr('style', 'display: normal');
 	}
-	function showLoginForms(){
+	function showLoginForms() {
 		$("#logins").attr('style', 'display: normal');
 		$("#signedIn").attr('style', 'display: none');
 		$("#logout").attr('style', 'display: none');
 	}
-	
-	function test(){
+
+	function test() {
 		hideLoginForms();
 	}
 </script>
