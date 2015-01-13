@@ -10,12 +10,12 @@ import de.htwg.fivewins.controller.FiveWinsController;
 import de.htwg.fivewins.controller.IFiveWinsController;
 import de.htwg.fivewins.field.Field;
 import de.htwg.fivewins.field.VerySillyAI;
+import play.api.data.Form;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.WebSocket;
 import models.GameInstance;
-
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
@@ -28,7 +28,6 @@ public class Application extends Controller {
 	 * Returns index page
 	 */
 	public static Result index() {
-		session("connected", "");
 		return ok(views.html.index.render());
 	}
 
@@ -174,5 +173,31 @@ public class Application extends Controller {
 		IFiveWinsController c = gameInstances.get(UUID.fromString(session("gameId"))).getController();
 		c.handleInputOrQuit("q");
 		return ok();
+	}
+	
+	public static Result authenticate(String name, String password) {
+        
+        if (name.equals("Dummy") && password.equals("Dummy")) {
+            session().clear();
+            session("connected", "true");
+            return ok("true");
+        } else {
+        	return badRequest("false");
+        } 
+    }
+	
+	public static Result isLoggedIn() {
+		if(session("connected")!= null) {
+			// user isn't logged in
+			return ok("false");
+		} else
+			return ok("true");
+	}
+	
+	public static Result logout() {
+		session().clear();
+		return redirect(
+                routes.Application.index()
+            );
 	}
 }

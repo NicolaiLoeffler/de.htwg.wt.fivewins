@@ -15,7 +15,7 @@
 					ngclick="logout()" style="display: none">Abmelden</button>
 			</div>
 			<div>
-				<button class="btn btn-outline btn-lg" id="continu" onclick="continu()" style="display: normal;">Play</button>
+				<button class="btn btn-outline btn-lg" id="continu" onclick="continu()" style="display: none;">Play</button>
 			</div>
 		</div>
 	</div>
@@ -58,5 +58,9 @@
 				.joinOnlineGame();
 		angular.element(document.getElementById('field-container')).scope()
 				.$apply();
+	}
+	
+	function localLogin() {
+		alert($("uniqueName").val());
 	}
 </script>
