@@ -262,15 +262,14 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 	};
 	
 	$scope.login = function() {
+		$("#config").toggle('slow');
 		$.get("/islogedin", function( data ) {
 			  if(data != "true") {
 				  $("#loginContainer").load("/assets/htmls/login.html", function() {
-						$("#config").toggle('slow');
 						$("#field-container").toggle('slow');
 						$("#logins").toggle('slow');
 					});
 			  } else {
-				    $("#config").toggle();
 					angular.element(document.getElementById('field-container')).scope()
 							.joinOnlineGame();
 					angular.element(document.getElementById('field-container')).scope()
