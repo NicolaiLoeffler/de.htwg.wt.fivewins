@@ -179,7 +179,7 @@ public class Application extends Controller {
         
         if (name.equals("Dummy") && password.equals("Dummy")) {
             session().clear();
-            session("connected", "true");
+            session("connected", "Dummy");
             return ok("true");
         } else {
         	return badRequest("false");
@@ -205,5 +205,9 @@ public class Application extends Controller {
 		session().clear();
 		session("connected", mail);
 		return ok();
+	}
+	
+	public static Result getUsername() {
+		return ok(session("connected"));
 	}
 }

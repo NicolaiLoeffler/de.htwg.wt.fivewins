@@ -15,6 +15,7 @@ POST	/login/:name/:password				controllers.Application.authenticate(name:String,
 POST	/googlelogin/:mail					controllers.Application.googleLogin(mail:String)
 GET		/islogedin							controllers.Application.isLoggedIn()
 GET		/logout								controllers.Application.logout()
+GET		/username							controllers.Application.getUsername()
 
 
 # Map static resources from the /public folder to the /assets URL path
