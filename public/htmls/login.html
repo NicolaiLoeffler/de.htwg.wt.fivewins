@@ -25,6 +25,8 @@
 	</div>
 	<div class="col-md-4"></div>
 </div>
+<button class="btn btn-outline btn-lg" id="test" onclick="test()"
+	style="margin: 0 auto">Play</button>
 
 
 <link rel="import" href="/assets/elements/login-form.html">
@@ -38,20 +40,10 @@
 		if (authResult['status']['signed_in']) {
 			// Update the app to reflect a signed in user
 			// Hide the sign-in button now that the user is authorized, for example:
-			document.getElementById('logins').setAttribute('style',
-					'display: none');
-			document.getElementById('signedIn').setAttribute('style',
-					'display: normal');
-			document.getElementById('logout').setAttribute('style',
-					'display: normal');
+			hideLoginForms();			
 		} else {
 			if (authResult['error'] == "user_signed_out") {
-				document.getElementById('logins').setAttribute('style',
-						'display: normal');
-				document.getElementById('signedIn').setAttribute('style',
-						'display: none');
-				document.getElementById('logout').setAttribute('style',
-						'display: none');
+				showLoginForms();
 			}
 			// Possible error values:
 			//   "user_signed_out" - User is signed-out
@@ -60,23 +52,35 @@
 			console.log('Sign-in state: ' + authResult['error']);
 		}
 	}
-	
-	function logout() {
-		document.getElementById('logout').setAttribute('style',
-				'display: normal');
-		gapi.auth.signOut();
-	}
 
 	function continu() {
-		$("#config").toggle();
 		$("#field-container").toggle();
-		$("#logins").toggle();
+		$("#config").toggle();
+		$("#signedIn").toggle();
 		angular.element(document.getElementById('field-container')).scope()
 				.joinOnlineGame();
 		angular.element(document.getElementById('field-container')).scope()
 				.$apply();
 	}
 	$('#logout').bind('click', function() {
+		$("#logins").attr('style', 'display: normal');
+		$("#signedIn").attr('style', 'display: none');
+		$("#logout").attr('style', 'display: none');
 		gapi.auth.signOut();
 	});
+	
+	function hideLoginForms(){
+		$("#logins").attr('style', 'display: none');
+		$("#signedIn").attr('style', 'display: normal');
+		$("#logout").attr('style', 'display: normal');
+	}
+	function showLoginForms(){
+		$("#logins").attr('style', 'display: normal');
+		$("#signedIn").attr('style', 'display: none');
+		$("#logout").attr('style', 'display: none');
+	}
+	
+	function test(){
+		hideLoginForms();
+	}
 </script>
