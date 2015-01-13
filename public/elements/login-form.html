@@ -36,7 +36,7 @@
 						console.log("try local login.");
 						if(data == "true") {
 							console.log("local login true");
-							$('#signedIn').show();
+							hideLoginForms();
 						} else {
 							console.log("local login false");
 							$('#errorStatus').value = "An error occured.";
