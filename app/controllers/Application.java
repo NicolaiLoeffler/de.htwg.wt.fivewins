@@ -187,7 +187,7 @@ public class Application extends Controller {
     }
 	
 	public static Result isLoggedIn() {
-		if(session("connected")!= null) {
+		if(session("connected")== null) {
 			// user isn't logged in
 			return ok("false");
 		} else
