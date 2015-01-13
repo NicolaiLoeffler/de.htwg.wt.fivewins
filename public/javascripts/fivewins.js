@@ -262,10 +262,11 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 	};
 	
 	$scope.login = function() {
-		$("#config").toggle('slow');
-		$("#field-container").toggle('slow');
-		$("#logins").toggle('slow');
-		
+		$("#loginContainer").load("/assets/htmls/login.html", function() {
+			$("#config").toggle('slow');
+			$("#field-container").toggle('slow');
+			$("#logins").toggle('slow');
+		});
 	};
 	
 	$scope.animateLoad = function() {
