@@ -15,12 +15,13 @@ At the moment used:
 - Bootstrap
 - AngularJS
 - WebSockets
-
-Planned to use:
-
 - Polymer
 - Single Sign On
+- One Page Scroll
+- spin.js
+
+
 
 ## Demo
 
-Want to see how it looks visit the [Live Demo](http://secure-garden-5684.herokuapp.com/).
+Want to see how it looks visit the [Live Demo](http://five-wins.herokuapp.com/).
