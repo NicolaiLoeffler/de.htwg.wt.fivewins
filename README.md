@@ -25,7 +25,7 @@ At the moment used:
 
 ## Rest-API provided by Play!
 | - | PATH | WHAT |
---------------------
+| - | - | - |
 | GET | / | Renders index.scala.html |
 | POST | /setCell/:column/:row | Sets cell in column row|
 | POST | /game/field | Returns gamefield as Json |
