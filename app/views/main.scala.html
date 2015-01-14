@@ -14,6 +14,19 @@
           <script type='text/javascript' src='@routes.Assets.at("javascripts/fivewins.js")'></script>
           <script type='text/javascript' src='@routes.Assets.at("javascripts/spin.min.js")'></script>
           <link rel="stylesheet" href='@routes.Assets.at("stylesheets/FiveWins.css")' />
+          <script type="text/javascript">
+          		<!--
+          		$(document).ready(function() {
+          			$.get("/islogedin", function( data ) {
+          			  if(data != "true") {
+          				 $("#logout").hide();
+          			  } else {
+          				  $("#logout").show();
+          			  }
+          			});
+          		});
+          		-->
+          </script>
   </head>
   <body>
     <!-- HEADER -->
