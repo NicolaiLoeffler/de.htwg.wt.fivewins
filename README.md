@@ -8,6 +8,10 @@ under [Five Wins](https://github.com/mamawego/de.htwg.se).
 ## Status
 It's ready and all function works, but the code has to be refactored. We're to anxious ;)
 
+## Demo
+
+Want to see how it looks visit the [Live Demo](http://five-wins.herokuapp.com/).
+
 ## Used Technologies
 
 We have used a wide technologie stack. 
@@ -22,6 +26,15 @@ At the moment used:
 - Single Sign On
 - One Page Scroll
 - spin.js
+
+## Own Polymer element
+We created an own polymer element. It uses elements from google paper elements. Our polymer element provides our 
+local login mask. All you need to insert is:
+```
+<login-form></login-form>
+```
+
+[Link to the code](https://github.com/NicolaiLoeffler/de.htwg.wt.fivewins/blob/master/public/elements/login-form.html)
 
 ## Rest-API provided by Play!
 | Method | PATH | WHAT |
@@ -42,8 +55,3 @@ At the moment used:
 
 To access files from /public/ use /assets/ instead of /public/.
 
-
-
-## Demo
-
-Want to see how it looks visit the [Live Demo](http://five-wins.herokuapp.com/).
