@@ -25,7 +25,6 @@
 	<div class="col-md-4"></div>
 </div>
 
-
 <link rel="import" href="/assets/elements/login-form.html">
 <script>
 	$(document).ready(function() {
@@ -38,6 +37,7 @@
 			// Update the app to reflect a signed in user
 			// Hide the sign-in button now that the user is authorized, for example:
 			$.post("/googlelogin/" + authResult['id_token'], function(data) {
+				console.log("Logged in");
 			});
 			hideLoginForms();
 		} else {
@@ -67,8 +67,9 @@
 	}
 
 	$('#logout').bind('click', function() {
-		$("#logins").attr('style', 'display: normal');
-		$("#signedIn").attr('style', 'display: none');
+		$.post("/logout/", function(data) {
+			console.log("Logged out");
+		});
 		$("#logout").attr('style', 'display: none');
 		gapi.auth.signOut();
 	});
@@ -82,9 +83,5 @@
 		$("#logins").attr('style', 'display: normal');
 		$("#signedIn").attr('style', 'display: none');
 		$("#logout").attr('style', 'display: none');
-	}
-
-	function test() {
-		hideLoginForms();
 	}
 </script>
