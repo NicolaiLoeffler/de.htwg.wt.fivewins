@@ -24,8 +24,8 @@ At the moment used:
 - spin.js
 
 ## Rest-API provided by Play!
-| - | PATH | WHAT |
-| - | - | - |
+| Method | PATH | WHAT |
+| ---- | ----- | ----- |
 | GET | / | Renders index.scala.html |
 | POST | /setCell/:column/:row | Sets cell in column row|
 | POST | /game/field | Returns gamefield as Json |
