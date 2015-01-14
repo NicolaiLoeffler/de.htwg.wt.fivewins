@@ -66,14 +66,6 @@
 		alert($("uniqueName").val());
 	}
 
-	$('#logout').bind('click', function() {
-		$.post("/logout/", function(data) {
-			console.log("Logged out");
-		});
-		$("#logout").attr('style', 'display: none');
-		gapi.auth.signOut();
-	});
-
 	function hideLoginForms() {
 		$("#logins").attr('style', 'display: none');
 		$("#signedIn").attr('style', 'display: normal');

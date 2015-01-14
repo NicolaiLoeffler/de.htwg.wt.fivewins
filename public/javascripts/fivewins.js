@@ -304,6 +304,16 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 		$scope.gameUUID = '';
 	}
 
+	$(document).ready(function() {		
+		$('#logout').bind('click', function() {
+			$.post("/logout", function(data) {
+				console.log("Logged out");
+			});
+			$("#logout").attr('style', 'display: none');
+			gapi.auth.signOut();
+		});
+	});
+
 });
 
 
