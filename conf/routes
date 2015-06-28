@@ -16,6 +16,8 @@ POST	/googlelogin/:mail					controllers.Application.googleLogin(mail:String)
 GET		/islogedin							controllers.Application.isLoggedIn()
 POST	/logout								controllers.Application.logout()
 GET		/username							controllers.Application.getUsername()
+GET		/allGames							controllers.Application.getAllGames()
+POST	/saveGame							controllers.Application.saveGame()
 
 
 # Map static resources from the /public folder to the /assets URL path

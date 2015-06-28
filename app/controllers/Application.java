@@ -2,6 +2,7 @@ package controllers;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -10,6 +11,7 @@ import de.htwg.fivewins.FiveWinsModule;
 import de.htwg.fivewins.controller.game.FiveWinsController;
 import de.htwg.fivewins.controller.game.IFiveWinsController;
 import de.htwg.fivewins.model.field.Field;
+import de.htwg.fivewins.model.field.IField;
 import de.htwg.fivewins.model.ai.VerySillyAI;
 import play.api.data.Form;
 import play.libs.Json;
@@ -234,5 +236,27 @@ public class Application extends Controller {
 
 	public static Result getUsername() {
 		return ok(session("connected"));
+	}
+	
+	public static Result getAllGames() {
+		if(controller == null) {
+			Injector injector = Guice.createInjector(new FiveWinsModule());
+			// Build up application
+			
+			controller = injector.getInstance(IFiveWinsController.class);
+		}
+		List<IField> l = controller.getAllFields();
+		for(IField f : l) {
+			System.out.println(f.toString());
+		}
+		return ok();
+	}
+	
+	public static Result saveGame() {
+		if(controller == null) {
+			return badRequest();
+		}
+		controller.saveGame();
+		return ok();
 	}
 }

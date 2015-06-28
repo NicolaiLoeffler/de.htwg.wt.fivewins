@@ -137,6 +137,10 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 		$scope.isInPvPOnlineGame = true;
 		$scope.$apply();
 	}
+	
+	$scope.saveGame = function() {
+		$http.post("/saveGame");
+	}
 
 	$scope.pressed = function($event) {
 		if ($scope.isGameStarted) {
@@ -252,12 +256,6 @@ fiveWinsApp.controller('FiveWinsGameCtrl', function($scope, $routeParams,
 								+ ' (Closed)');
 				socket.close();
 			};
-
-			function send() {
-				/*
-				 * var grid = ""; socket.send(grid); console.log('Sent grid ');
-				 */
-			}
 		}
 		// End connect
 	};
