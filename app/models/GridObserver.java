@@ -8,7 +8,7 @@ import java.util.UUID;
 import play.libs.Json;
 import play.mvc.WebSocket;
 import play.mvc.WebSocket.Out;
-import de.htwg.fivewins.controller.IFiveWinsController;
+import de.htwg.fivewins.controller.game.IFiveWinsController;
 import de.htwg.util.observer.IObserver;
 
 public class GridObserver implements IObserver {
@@ -41,7 +41,8 @@ public class GridObserver implements IObserver {
         map.put("status", controller.getStatus());      
         map.put("isWon", Boolean.toString(controller.getWinner()));
         map.put("winner", controller.getWinnerSign());
-        map.put("playerLeft", Boolean.toString(controller.getPlayerLeft()));
+        // TODO: controller.getPlayerLeft() 
+        map.put("playerLeft", Boolean.toString(false));
         map.put("gameUUID", this.gameUUID);
       	
 		//preparation of gamefield

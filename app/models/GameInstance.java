@@ -1,6 +1,6 @@
 package models;
 
-import de.htwg.fivewins.controller.IFiveWinsController;
+import de.htwg.fivewins.controller.game.IFiveWinsController;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -6,10 +6,11 @@ import java.util.Map;
 import java.util.UUID;
 
 import models.GridObserver;
-import de.htwg.fivewins.controller.FiveWinsController;
-import de.htwg.fivewins.controller.IFiveWinsController;
-import de.htwg.fivewins.field.Field;
-import de.htwg.fivewins.field.VerySillyAI;
+import de.htwg.fivewins.FiveWinsModule;
+import de.htwg.fivewins.controller.game.FiveWinsController;
+import de.htwg.fivewins.controller.game.IFiveWinsController;
+import de.htwg.fivewins.model.field.Field;
+import de.htwg.fivewins.model.ai.VerySillyAI;
 import play.api.data.Form;
 import play.libs.Json;
 import play.mvc.Controller;
@@ -18,6 +19,14 @@ import play.mvc.WebSocket;
 import models.GameInstance;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.google.inject.AbstractModule;
+import com.google.inject.multibindings.Multibinder;
+
+import controllers.routes;
+import de.htwg.fivewins.FiveWinsModule;
+
 
 public class Application extends Controller {
 
@@ -46,7 +55,12 @@ public class Application extends Controller {
 	 */
 	public static Result newGame(Integer fieldSize) {
 		session("gameId","local");
-		controller = new FiveWinsController(new Field(new Integer(fieldSize)));
+		// Set up google guice
+
+		Injector injector = Guice.createInjector(new FiveWinsModule());
+		// Build up application
+		
+		controller = injector.getInstance(IFiveWinsController.class);
 		return ok();
 	}
 
@@ -58,9 +72,14 @@ public class Application extends Controller {
 	 * @return
 	 */
 	public static Result newGameAI(Integer fieldSize, String sign) {
-		session("gameId","local");
-		Field field = new Field(fieldSize);
-		controller = new FiveWinsController(field, new VerySillyAI("O", field));
+		session("gameId", "local");
+		// Set up google guice
+		Injector injector = Guice.createInjector(new FiveWinsModule());
+
+		// Build up application
+		controller = injector.getInstance(IFiveWinsController.class);
+		controller.resizeGameField(fieldSize);
+
 		return ok();
 	}
 
@@ -78,9 +97,12 @@ public class Application extends Controller {
 		if (gameUUID.equals("local")) {
 			controller.handleInputOrQuit(col + "," + r);
 		} else {
-			IFiveWinsController c = gameInstances.get(UUID.fromString(gameUUID)).getController();
-			if(c == null){
-				System.out.println("Couldnt get Instance controller for game instance "+gameUUID);
+			IFiveWinsController c = gameInstances
+					.get(UUID.fromString(gameUUID)).getController();
+			if (c == null) {
+				System.out
+						.println("Couldnt get Instance controller for game instance "
+								+ gameUUID);
 				return ok();
 			}
 			c.handleInputOrQuit(col + "," + r);
@@ -107,13 +129,13 @@ public class Application extends Controller {
 			public void onReady(WebSocket.In<String> in,
 					WebSocket.Out<String> out) {
 				if (gameUUID.equals("local")) {
-					new GridObserver(controller, out, gameUUID);					
+					new GridObserver(controller, out, gameUUID);
 				} else {
-					System.out.println("starting grid observer for"+gameUUID);
-					gameInstances.get(
-							UUID.fromString(gameUUID)).setOut(out);
+					System.out.println("starting grid observer for" + gameUUID);
+					gameInstances.get(UUID.fromString(gameUUID)).setOut(out);
 					new GridObserver(gameInstances.get(
-							UUID.fromString(gameUUID)).getController(), out, gameUUID);
+							UUID.fromString(gameUUID)).getController(), out,
+							gameUUID);
 				}
 			}
 		};
@@ -129,19 +151,22 @@ public class Application extends Controller {
 		String playerId;
 		GameInstance gameInstance = getJoinableGame();
 		if (gameInstance == null) {
-			gameInstance = new GameInstance("X", new FiveWinsController(
-					new Field(8)));
+			// Set up google guice
+			Injector injector = Guice.createInjector(new FiveWinsModule());
+
+			// Build up application
+			gameInstance = null;
 			gameInstances.put(gameInstance.gameUUID, gameInstance);
 			playerId = "X";
-			System.out.println(gameInstance.getGameId()+" player X joined");
+			System.out.println(gameInstance.getGameId() + " player X joined");
 		} else {
 			gameInstance.setPlayer2("O");
 			playerId = "O";
-			System.out.println(gameInstance.getGameId()+" player O joined");
-			System.out.println(gameInstance.getGameId()+" is ready to play");
+			System.out.println(gameInstance.getGameId() + " player O joined");
+			System.out.println(gameInstance.getGameId() + " is ready to play");
 		}
 		session("gameId", gameInstance.gameUUID + "");
-		session("playerId",playerId);
+		session("playerId", playerId);
 		result.put("playerId", playerId);
 		result.put("gameUUID", gameInstance.gameUUID.toString());
 		return ok(result);
@@ -150,7 +175,8 @@ public class Application extends Controller {
 	/**
 	 * gets an joinable game instance if one exists
 	 * 
-	 * @return GameInstance returns a joinable GameInstance or null if no joinable instance exists
+	 * @return GameInstance returns a joinable GameInstance or null if no
+	 *         joinable instance exists
 	 */
 	public static GameInstance getJoinableGame() {
 		for (UUID id : gameInstances.keySet()) {
@@ -168,45 +194,44 @@ public class Application extends Controller {
 	 * 
 	 * @return Result
 	 */
-	public static Result stopGame(){
+	public static Result stopGame() {
 		System.out.println("Stopping Game");
-		IFiveWinsController c = gameInstances.get(UUID.fromString(session("gameId"))).getController();
+		IFiveWinsController c = gameInstances.get(
+				UUID.fromString(session("gameId"))).getController();
 		c.handleInputOrQuit("q");
 		return ok();
 	}
-	
+
 	public static Result authenticate(String name, String password) {
-        
-        if (name.equals("Dummy") && password.equals("Dummy")) {
-            session().clear();
-            session("connected", "Dummy");
-            return ok("true");
-        } else {
-        	return badRequest("false");
-        } 
-    }
-	
+
+		if (name.equals("Dummy") && password.equals("Dummy")) {
+			session().clear();
+			session("connected", "Dummy");
+			return ok("true");
+		} else {
+			return badRequest("false");
+		}
+	}
+
 	public static Result isLoggedIn() {
-		if(session("connected")== null) {
+		if (session("connected") == null) {
 			// user isn't logged in
 			return ok("false");
 		} else
 			return ok("true");
 	}
-	
+
 	public static Result logout() {
 		session().clear();
-		return redirect(
-                routes.Application.index()
-            );
+		return ok();
 	}
-	
+
 	public static Result googleLogin(String mail) {
 		session().clear();
 		session("connected", mail);
 		return ok();
 	}
-	
+
 	public static Result getUsername() {
 		return ok(session("connected"));
 	}
