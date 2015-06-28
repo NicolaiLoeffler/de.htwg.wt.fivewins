@@ -93,22 +93,15 @@ public class Application extends Controller {
 	 * @return
 	 */
 	public static Result setCell(String column, String row) {
+		if(controller == null) {
+			return badRequest();
+		}
 		int col = new Integer(column) + 1;
 		int r = new Integer(row) + 1;
 		final String gameUUID = session("gameId");
-		if (gameUUID.equals("local")) {
-			controller.handleInputOrQuit(col + "," + r);
-		} else {
-			IFiveWinsController c = gameInstances
-					.get(UUID.fromString(gameUUID)).getController();
-			if (c == null) {
-				System.out
-						.println("Couldnt get Instance controller for game instance "
-								+ gameUUID);
-				return ok();
-			}
-			c.handleInputOrQuit(col + "," + r);
-		}
+
+		controller.handleInputOrQuit(col + "," + r);
+		System.out.println("setting cell");
 		return ok();
 	}
 
@@ -257,6 +250,7 @@ public class Application extends Controller {
 			return badRequest();
 		}
 		controller.saveGame();
+		System.out.println("saving game");
 		return ok();
 	}
 }
